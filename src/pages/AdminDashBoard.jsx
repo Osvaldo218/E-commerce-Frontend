@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 import SalesChart from "../components/SalesChart";
+import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [salesData, setSalesData] = useState([]);
@@ -38,21 +39,22 @@ const AdminDashboard = () => {
   }, [salesData]);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="max-w-5xl mx-auto bg-white shadow-md rounded-xl p-6">
-        <h2 className="text-3xl font-bold text-gray-700 mb-6">Dashboard de Administración</h2>
-        <div className="w-full h-64">
-          <canvas id="salesChart"></canvas>
-        </div>
-        <button
-          onClick={() => navigate("/admin/products")}
-          className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300"
-        >
-          Gestionar Productos
-        </button>
-        <SalesChart />
-      </div>
+    <div className="dashboard-container">
+  <h2 className="dashboard-header">Dashboard de Administración</h2>
+  <div className="stats-container">
+    <div className="stat-card">
+      <p className="stat-title">Ventas Totales</p>
+      <p className="stat-value">$5000</p>
     </div>
+  </div>
+  <div className="chart-container">
+    <canvas id="salesChart"></canvas>
+  </div>
+  <div className="dashboard-buttons">
+    <button onClick={() => navigate("/admin/products")}>Gestionar Productos</button>
+    <button onClick={() => navigate("/admin/sales")}>Ver Reportes</button>
+  </div>
+</div>
   );
 };
 

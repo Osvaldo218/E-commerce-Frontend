@@ -80,7 +80,7 @@
   }
   
   .chat-message.bot {
-    background: #e0e0e0;
+    background: gray;
     align-self: flex-start;
   }
   
