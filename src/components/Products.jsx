@@ -18,7 +18,7 @@ const Products = () => {
 
       setProducts(data.products || data);
     } catch (error) {
-      console.error("❌ Error al obtener productos", error);
+      console.log("%c❌ Error al obtener productos:", "color: black; font-weight: bold;", error);
     }
   };
 

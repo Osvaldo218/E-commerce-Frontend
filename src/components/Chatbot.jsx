@@ -1,62 +1,66 @@
 import React, { useState } from "react";
-import { FaComments, FaPaperPlane } from "react-icons/fa";
-import "../styles/chatbot.css";
+import axios from "axios";
+import "../styles/Chatbot.css";
+import { MessageCircle } from "lucide-react";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ role: "bot", content: "¡Hola! ¿En qué puedo ayudarte?" }]);
+  const [messages, setMessages] = useState([{ sender: "bot", text: "¡Hola! ¿En qué puedo ayudarte?" }]);
   const [input, setInput] = useState("");
 
+  // Manejar envío de mensajes
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    // Agregar mensaje del usuario al chat
+    const userMessage = { sender: "user", text: input };
+    setMessages([...messages, userMessage]);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chatbot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
-      });
-
-      const data = await res.json();
-      setMessages((prev) => [...prev, { role: "bot", content: data.reply }]);
+      const response = await axios.post("http://localhost:5000/api/chatbot", { message: input });
+      const botMessage = { sender: "bot", text: response.data.reply };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
-      console.error("Error en chatbot:", error);
-      setMessages((prev) => [...prev, { role: "bot", content: "Error al obtener respuesta." }]);
+      setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: "Hubo un error, intenta más tarde." }]);
     }
 
     setInput("");
   };
 
   return (
-    <div className="chatbot-container">
-      <button className="chatbot-toggle" onClick={() => setIsOpen(!isOpen)}>💬</button>
+    <>
+      {/* Botón flotante */}
+      <button className="chatbot-toggle" onClick={() => setIsOpen(!isOpen)}>
+        <MessageCircle size={24} />
+      </button>
+
+      {/* Chatbot */}
       {isOpen && (
-        <div className="chatbot-window">
-          <div className="chatbot-header">PointBot</div>
+        <div className="chatbot-container">
+          <div className="chatbot-header">
+            <h3>PointBot</h3>
+            <button onClick={() => setIsOpen(false)}>✖</button>
+          </div>
           <div className="chatbot-messages">
             {messages.map((msg, index) => (
-              <div key={index} className={`chat-message ${msg.role}`}>
-                {msg.content}
+              <div key={index} className={`chatbot-message ${msg.sender}`}>
+                {msg.text}
               </div>
             ))}
           </div>
           <div className="chatbot-input">
             <input
               type="text"
+              placeholder="Escribe tu mensaje..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe un mensaje..."
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
-            <button onClick={sendMessage}>
-              <FaPaperPlane />
-            </button>
+            <button onClick={sendMessage}>Enviar</button>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
