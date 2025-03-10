@@ -1,28 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/ForgotPassword.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    const data = await res.json();
-    setMessage(data.message);
+  const handleResetPassword = async () => {
+    setMessage(""); 
+    try {
+      await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      setMessage("✅ Revisa tu correo para restablecer tu contraseña.");
+    } catch (error) {
+      setMessage("❌ No se encontró una cuenta con este correo.");
+    }
   };
 
   return (
-    <div>
-      <h2>Recuperar Contraseña</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Tu correo" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <button type="submit">Enviar</button>
-      </form>
-      <p>{message}</p>
+    <div className="forgot-password-container">
+      <div className="forgot-password-box">
+        <h2>Recuperar Contraseña</h2>
+
+        {message && <p className="message">{message}</p>}
+
+        <input
+          type="email"
+          placeholder="Ingresa tu correo"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <button className="reset-btn" onClick={handleResetPassword}>
+          Enviar Enlace de Recuperación
+        </button>
+
+        <button className="back-btn" onClick={() => navigate("/Login")}>
+          ⬅ Volver al Login
+        </button>
+      </div>
     </div>
   );
 };
