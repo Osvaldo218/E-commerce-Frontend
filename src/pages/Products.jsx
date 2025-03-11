@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import CartContext from "../context/CartContext";
 import "../styles/Products.css";
 
 const Products = () => {
@@ -13,40 +14,56 @@ const Products = () => {
     image: "",
   });
 
-  useEffect(() => {
-    let isMounted = true; // Evita actualizar el estado si el componente se desmonta
+  const { addToCart } = useContext(CartContext);
 
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get("http://localhost:5000/api/products");
-        if (isMounted) {
-          setProducts(res.data);
-          setError(null);
-        }
-      } catch (err) {
-        if (isMounted) setError("Error al obtener productos");
-      } finally {
-        if (isMounted) setLoading(false);
+  // ✅ Función para obtener productos
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await axios.get("http://localhost:5000/api/products");
+
+      if (!Array.isArray(res.data)) {
+        throw new Error("La API no devolvió una lista de productos válida.");
       }
-    };
 
+      console.log("📦 Productos recibidos:", res.data);
+      setProducts(res.data);
+    } catch (err) {
+      console.error("❌ Error al obtener productos:", err);
+      setError("No se pudieron cargar los productos.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("✅ Componente Products montado");
     fetchProducts();
 
     return () => {
-      isMounted = false; // Limpieza para evitar actualizaciones en componentes desmontados
+      console.log("❌ Componente Products desmontado");
     };
-  }, []); // Solo se ejecuta una vez al montar
+  }, []);
 
-  // Agregar producto
+  // ✅ Agregar un producto y refrescar la lista
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
+      console.log("➕ Agregando producto:", newProduct);
       const res = await axios.post("http://localhost:5000/api/products", newProduct);
-      setProducts((prevProducts) => [...prevProducts, res.data]); // Mantener productos actuales
+
+      if (!res.data || !res.data._id) {
+        throw new Error("Error en la respuesta del servidor al agregar producto.");
+      }
+
       setNewProduct({ name: "", price: "", stock: "", image: "" });
       alert("Producto agregado correctamente");
+
+      // ✅ Recargar productos después de agregar uno
+      fetchProducts();
     } catch (error) {
+      console.error("❌ Error al agregar producto", error);
       setError("Error al agregar producto");
     }
   };
@@ -55,19 +72,27 @@ const Products = () => {
     <div className="products-container">
       <h2 className="products-title">Lista de Productos</h2>
 
+      {/* Botón para actualizar productos manualmente */}
+      <button onClick={fetchProducts} className="refresh-button">🔄 Actualizar Productos</button>
+
       {error && <p className="error-message">{error}</p>}
       {loading ? (
-        <p className="loading-text">Cargando productos...</p>
+        <p className="loading-text">⏳ Cargando productos...</p>
       ) : products.length === 0 ? (
-        <p className="no-products">No hay productos disponibles.</p>
+        <p className="no-products">⚠️ No hay productos disponibles.</p>
       ) : (
         <div className="products-grid">
           {products.map((product) => (
             <div key={product._id} className="product-card">
-              <img src={product.image} alt={product.name} className="product-image" />
+              <img src={product.image || "https://via.placeholder.com/150"} alt={product.name} className="product-image" />
               <h3 className="product-name">{product.name}</h3>
-              <p className="product-price">💲{product.price.toFixed(2)}</p>
-              <p className="product-stock">📦 Stock: {product.stock}</p>
+              <p className="product-price">
+                💲 {isNaN(product.price) ? "N/A" : parseFloat(product.price).toFixed(2)}
+              </p>
+              <p className="product-stock">
+                📦 Stock: {isNaN(product.stock) ? "N/A" : product.stock}
+              </p>
+              <button onClick={() => addToCart(product)}>🛒 Agregar al Carrito</button>
             </div>
           ))}
         </div>
@@ -103,7 +128,7 @@ const Products = () => {
           onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
           required
         />
-        <button type="submit">Agregar Producto</button>
+        <button type="submit">✅ Agregar Producto</button>
       </form>
     </div>
   );
