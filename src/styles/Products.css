@@ -48,18 +48,39 @@
   
   .products-grid {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
-    overflow-x: auto;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    white-space: nowrap; /* Evita el salto de línea */
+    gap: 15px;
     padding: 10px;
+    scroll-behavior: smooth; /* Hace que el scroll sea más fluido */
   }
   
+  /* Ocultar la barra de desplazamiento en navegadores modernos */
+  .products-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .products-grid::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 4px;
+  }
+  
+  .products-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
   .product-card {
-    background: #fff;
+    flex: 0 0 auto;
+    width: auto;
+    background: white;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
   }
   
   .product-card:hover {
