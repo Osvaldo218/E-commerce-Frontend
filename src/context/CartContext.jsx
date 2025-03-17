@@ -4,14 +4,17 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
-    // Intentar cargar el carrito desde localStorage al iniciar
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // Guardar el carrito en localStorage cada vez que cambie
+  // Guardar en localStorage solo si hay productos en el carrito
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.removeItem("cart"); // Limpia si está vacío
+    }
   }, [cart]);
 
   // ✅ Agregar producto al carrito
@@ -28,14 +31,23 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Eliminar producto del carrito
+  // ✅ Eliminar un producto del carrito
   const removeFromCart = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
-  // ✅ Vaciar carrito
+  // ✅ Vaciar el carrito
   const clearCart = () => {
     setCart([]);
+  };
+
+  // ✅ Modificar cantidad manualmente
+  const updateQuantity = (productId, quantity) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: Math.max(1, quantity) } : item
+      )
+    );
   };
 
   // ✅ Calcular el total del carrito
@@ -44,7 +56,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, totalPrice }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, totalPrice, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );

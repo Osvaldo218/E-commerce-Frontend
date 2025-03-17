@@ -1,94 +1,63 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext"; // Si tienes autenticación
+import "../styles/Orders.css"; // Asegúrate de tener estilos
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const [statusFilter, setStatusFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const { user } = useAuth(); // Obtener usuario logueado
+  const [orders, setOrders] = useState([]); // Estado para pedidos
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Obtener token si es necesario
+        const { data } = await axios.get("http://localhost:5000/api/orders", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("Pedidos recibidos:", data); // 🔍 Verificar en consola
+        setOrders(data);
+      } catch (err) {
+        console.error("Error al obtener pedidos:", err);
+        setError("Error al cargar pedidos. Intenta nuevamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchOrders();
-  }, [statusFilter, currentPage]);
+  }, []);
 
-  const fetchOrders = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/orders?page=${currentPage}&status=${statusFilter}`
-      );
-      const data = await res.json();
-      setOrders(data.orders);
-      setTotalPages(data.totalPages);
-    } catch (error) {
-      console.error("Error al obtener órdenes", error);
-    }
-  };
-
-  const updateOrderStatus = async (id, status) => {
-    try {
-      await fetch(`http://localhost:5000/api/orders/${id}/status`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-      });
-      fetchOrders();
-    } catch (error) {
-      console.error("Error al actualizar estado", error);
-    }
-  };
+  if (loading) return <p>Cargando pedidos...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h2>Gestión de Órdenes</h2>
+    <div className="orders-container">
+      <h2>📦 Mis Pedidos</h2>
 
-      <label>Filtrar por estado:</label>
-      <select onChange={(e) => setStatusFilter(e.target.value)}>
-        <option value="">Todos</option>
-        <option value="Pendiente">Pendiente</option>
-        <option value="Enviado">Enviado</option>
-        <option value="Completado">Completado</option>
-      </select>
-
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Total</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
+      {orders.length === 0 ? (
+        <p>No tienes pedidos aún.</p>
+      ) : (
+        <div className="orders-list">
           {orders.map((order) => (
-            <tr key={order._id}>
-              <td>{order._id}</td>
-              <td>{order.customerName}</td>
-              <td>${order.total}</td>
-              <td>{order.status}</td>
-              <td>
-                <select
-                  value={order.status}
-                  onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-                >
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Enviado">Enviado</option>
-                  <option value="Completado">Completado</option>
-                </select>
-              </td>
-            </tr>
+            <div key={order.id} className="order-card">
+              <h3>Pedido #{order.id}</h3>
+              <p>Estado: <strong>{order.status}</strong></p>
+              <p>Fecha: {new Date(order.createdAt).toLocaleDateString()}</p>
+              <ul>
+                {order.items.map((item) => (
+                  <li key={item.id}>
+                    {item.name} - {item.quantity} x ${item.price}
+                  </li>
+                ))}
+              </ul>
+              <h4>Total: ${order.total}</h4>
+            </div>
           ))}
-        </tbody>
-      </table>
-
-      <div>
-        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
-          Anterior
-        </button>
-        <span>Página {currentPage} de {totalPages}</span>
-        <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}>
-          Siguiente
-        </button>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

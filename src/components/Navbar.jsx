@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { ShoppingCart, User, Home } from "lucide-react"; // Importa íconos modernos
-import "../styles/Navbar.css"; // Asegúrate de agregar los estilos
+import { ShoppingCart, User, Home } from "lucide-react";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   const { cart } = useCart();
@@ -10,14 +10,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">🛍️ <span>PointShop</span></Link>
+        <Link to="/dashboard">🛍️ <span>Pointec</span></Link>
       </div>
       
       <ul className="navbar-links">
         <li><Link to="/dashboard"><Home size={20} /> Inicio</Link></li>
         <li><Link to="/admin/products">📦 Productos</Link></li>
         <li><Link to="/admin/orders">📜 Órdenes</Link></li>
-        <li><Link to="/login"><User size={20} /> Mi Cuenta</Link></li>
+        <li><Link to="/userData"><User size={20} /> Mi Cuenta</Link></li>
         <li className="cart-icon">
           <Link to="/cart">
             <ShoppingCart size={22} />

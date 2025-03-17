@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import CheckoutPage from "./pages/CheckoutPage";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
@@ -7,33 +8,36 @@ import Orders from "./pages/Orders";
 import SignIn from "./pages/SingIn";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import AdminDashboard from "./pages/AdminDashBoard";
+import AdminDashboard from "./pages/AdminDashboard";
 import Chatbot from "./components/Chatbot";
-import Cart from "./pages/Cart";
-import Navbar from "./components/Navbar";
 import { CartProvider } from "./context/CartContext";
+import Cart from "./pages/Cart";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
+    <AuthProvider>
     <CartProvider>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Products />} />
-          <Route path="/dashboard" element={<AdminDashboard />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin/products" element={<Products />} />
-          <Route path="/admin/sales" element={<SalesReport />} />
-          <Route path="/admin/orders" element={<Orders />} />
-          <Route path="/singin" element={<SignIn />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+        <Navbar /> 
+        <div className="app-container">
+          <Routes>
+            <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/sales" element={<SalesReport />} />
+            <Route path="/admin/orders" element={<Orders />} />
+            <Route path="/singin" element={<SignIn />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
         <Chatbot />
       </Router>
     </CartProvider>
+    </AuthProvider>
   );
 }
 

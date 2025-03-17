@@ -1,0 +1,105 @@
+.orders-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Arial", sans-serif;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* 🎨 Tarjeta de pedido con un diseño más moderno */
+.order-card {
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-left: 6px solid #007bff; /* Color por defecto */
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 🎨 Resaltamos el ID y estado */
+.order-card h3 {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.order-card p {
+  font-size: 16px;
+  color: #cccccc;
+  margin-bottom: 5px;
+}
+
+/* 🎨 Lista de productos dentro de la orden */
+.order-card ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.order-card li {
+  font-size: 15px;
+  color: #bbbbbb;
+  padding: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-card li:last-child {
+  border-bottom: none;
+}
+
+/* 🎨 Estados del pedido con colores */
+.order-status {
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+/* 🎨 Colores según estado del pedido */
+.status-pendiente {
+  background: #ffa502;
+  color: #fff;
+}
+
+.status-enviado {
+  background: #007bff;
+  color: #fff;
+}
+
+.status-entregado {
+  background: #28a745;
+  color: #fff;
+}
+
+.status-cancelado {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* 🎨 Selector de estado más estilizado */
+.order-card select {
+  padding: 6px;
+  border-radius: 5px;
+  border: none;
+  background: #444;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.order-card select:hover {
+  background: #555;
+}

@@ -1,50 +1,71 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Mail, Lock } from "lucide-react"; // Iconos modernos
 import "../styles/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Estado de carga
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Evita recargar la página
+    if (!email || !password) {
+      setError("❌ Todos los campos son obligatorios.");
+      return;
+    }
+
     setError("");
+    setIsLoading(true);
+    
     try {
       const { data } = await axios.post("http://localhost:5000/api/auth/login", { email, password });
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (err) {
-      setError("❌  Error en login. Verifica tu email y contraseña.");
+      setError("❌ Error en login. Verifica tu email y contraseña.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Iniciar Sesión</h2>
+        <h2>🔑 Iniciar Sesión</h2>
 
         {error && <p className="error-msg">{error}</p>}
 
-        <input
-          type="email"
-          placeholder="Correo Electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <form onSubmit={handleLogin}>
+          <div className="input-group">
+            <Mail size={20} />
+            <input
+              type="email"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <button className="login-btn" onClick={handleLogin}>
-          Ingresar
-        </button>
+          <div className="input-group">
+            <Lock size={20} />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="login-btn" type="submit" disabled={isLoading}>
+            {isLoading ? "Ingresando..." : "Ingresar"}
+          </button>
+        </form>
 
         <div className="login-links">
           <button onClick={() => navigate("/forgot-password")}>¿Olvidaste tu contraseña?</button> |  
