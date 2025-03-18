@@ -17,7 +17,10 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
-  // ✅ Agregar producto al carrito
+  // ✅ Obtener cantidad total de productos en el carrito
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // ✅ Agregar producto al carrito (sin duplicados)
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
@@ -31,9 +34,15 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Eliminar un producto del carrito
+  // ✅ Eliminar un producto o reducir su cantidad
   const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+    setCart((prevCart) => {
+      return prevCart
+        .map((item) =>
+          item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0); // Si la cantidad es 0, lo elimina
+    });
   };
 
   // ✅ Vaciar el carrito
@@ -51,12 +60,20 @@ export const CartProvider = ({ children }) => {
   };
 
   // ✅ Calcular el total del carrito
-  const totalPrice = () => {
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, totalPrice, updateQuantity }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        updateQuantity,
+        totalPrice,
+        cartCount, // ✅ Nuevo: cantidad total de productos en el carrito
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

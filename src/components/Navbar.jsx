@@ -5,7 +5,7 @@ import { ShoppingCart, User, Home } from "lucide-react";
 import "../styles/Navbar.css";
 
 const Navbar = () => {
-  const { cart } = useCart();
+  const { cartCount } = useCart();
 
   return (
     <nav className="navbar">
@@ -20,8 +20,8 @@ const Navbar = () => {
         <li><Link to="/Perfil"><User size={20} /> Mi Cuenta</Link></li>
         <li className="cart-icon">
           <Link to="/cart">
-            <ShoppingCart size={22} />
-            {cart.length > 0 && <span className="cart-badge">{cart.length}</span>}
+            <ShoppingCart size={24} />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
         </li>
       </ul>
