@@ -10,14 +10,14 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/dashboard">🛍️ <span>Pointec</span></Link>
+        <Link to="/Login">🛍️ <span>Pointec</span></Link>
       </div>
       
       <ul className="navbar-links">
         <li><Link to="/dashboard"><Home size={20} /> Inicio</Link></li>
         <li><Link to="/admin/products">📦 Productos</Link></li>
         <li><Link to="/admin/orders">📜 Órdenes</Link></li>
-        <li><Link to="/userData"><User size={20} /> Mi Cuenta</Link></li>
+        <li><Link to="/Perfil"><User size={20} /> Mi Cuenta</Link></li>
         <li className="cart-icon">
           <Link to="/cart">
             <ShoppingCart size={22} />

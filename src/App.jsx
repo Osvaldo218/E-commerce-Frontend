@@ -13,6 +13,7 @@ import Chatbot from "./components/Chatbot";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/Cart";
 import { AuthProvider } from "./context/AuthContext";
+import UserProfile from "./pages/userProfile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/perfil" element={<UserProfile />} />
           </Routes>
         </div>
         <Chatbot />
