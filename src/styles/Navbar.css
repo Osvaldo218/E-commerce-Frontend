@@ -63,13 +63,14 @@
   .cart-icon a {
     display: flex;
     align-items: center;
+    margin-left: -40%;
   }
   
   /* Insignia con el número de productos en el carrito */
   .cart-badge {
     position: absolute;
     top: -5px;
-    right: -10px;
+    right: 12%;
     background: #ff3d3d;
     color: white;
     font-size: 12px;
