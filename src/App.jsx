@@ -5,10 +5,10 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import SalesReport from "./pages/SalesReport";
 import Orders from "./pages/Orders";
-import SignIn from "./pages/SingIn";
+import SingIn from "./pages/Singin";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboard from "./pages/AdminDashBoard";
 import Chatbot from "./components/Chatbot";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/Cart";
@@ -31,7 +31,7 @@ function App() {
             <Route path="/admin/sales" element={<SalesReport />} />
             <Route path="/admin/orders" element={<Orders />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route path="/singin" element={<SignIn />} />
+            <Route path="/singin" element={<SingIn />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/cart" element={<Cart />} />

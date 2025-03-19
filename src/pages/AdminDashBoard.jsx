@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
-import SalesChart from "../components/SalesChart";
 import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
@@ -52,7 +51,7 @@ const AdminDashboard = () => {
   </div>
   <div className="dashboard-buttons">
     <button onClick={() => navigate("/admin/products")}>Gestionar Productos</button>
-    <button onClick={() => navigate("/admin/sales")}>Ver Reportes</button>
+    <button onClick={() => navigate("/admin/sales")}>Ver Ventas</button>
   </div>
 </div>
   );

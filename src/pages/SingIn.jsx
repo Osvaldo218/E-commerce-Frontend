@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SingIn.css";
 
-const SignIn = () => {
+const SingIn = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,4 +61,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SingIn;
