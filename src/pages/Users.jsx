@@ -10,12 +10,32 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = () => {
-    fetch("http://localhost:5000/api/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error cargando usuarios:", error));
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/api/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error al obtener los usuarios");
+      }
+  
+      const data = await response.json();
+      console.log("Usuarios obtenidos:", data); // ✅ Verifica que los usuarios llegan correctamente
+      setUsers(data);
+    } catch (error) {
+      console.error("❌ Error al obtener usuarios:", error);
+    }
   };
+  
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   // Eliminar usuario
   const handleDelete = (id) => {

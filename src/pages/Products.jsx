@@ -7,6 +7,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userRole, setUserRole] = useState(""); // 🔹 Guardamos el rol del usuario
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -15,6 +16,21 @@ const Products = () => {
   });
 
   const { addToCart } = useContext(CartContext);
+
+  // ✅ Obtener el rol del usuario autenticado
+  const fetchUserRole = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const response = await axios.get("http://localhost:5000/api/auth/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserRole(response.data.role); // 🔹 Guardamos el rol del usuario
+    } catch (error) {
+      console.error("❌ Error al obtener el rol del usuario:", error);
+    }
+  };
 
   // ✅ Función para obtener productos
   const fetchProducts = async () => {
@@ -39,6 +55,7 @@ const Products = () => {
 
   useEffect(() => {
     console.log("✅ Componente Products montado");
+    fetchUserRole();
     fetchProducts();
 
     return () => {
@@ -46,19 +63,27 @@ const Products = () => {
     };
   }, []);
 
-  // ✅ Agregar un producto y refrescar la lista
+  // ✅ Agregar un producto y refrescar la lista (Solo Admin)
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("⚠️ No tienes permisos para agregar productos.");
+        return;
+      }
+
       console.log("➕ Agregando producto:", newProduct);
-      const res = await axios.post("http://localhost:5000/api/products", newProduct);
+      const res = await axios.post("http://localhost:5000/api/products", newProduct, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (!res.data || !res.data._id) {
         throw new Error("Error en la respuesta del servidor al agregar producto.");
       }
 
       setNewProduct({ name: "", price: "", stock: "", image: "" });
-      alert("Producto agregado correctamente");
+      alert("✅ Producto agregado correctamente");
 
       // ✅ Recargar productos después de agregar uno
       fetchProducts();
@@ -98,38 +123,41 @@ const Products = () => {
         </div>
       )}
 
-      {/* Formulario para agregar productos */}
-      <form className="product-form" onSubmit={handleAddProduct}>
-        <input
-          type="text"
-          placeholder="Nombre del producto"
-          value={newProduct.name}
-          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Precio"
-          value={newProduct.price}
-          onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Stock"
-          value={newProduct.stock}
-          onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="URL de la imagen"
-          value={newProduct.image}
-          onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
-          required
-        />
-        <button type="submit">✅ Agregar Producto</button>
-      </form>
+      {/* ✅ Solo el Admin puede agregar productos */}
+      {userRole === "admin" && (
+        <form className="product-form" onSubmit={handleAddProduct}>
+          <h3>➕ Agregar Nuevo Producto</h3>
+          <input
+            type="text"
+            placeholder="Nombre del producto"
+            value={newProduct.name}
+            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Precio"
+            value={newProduct.price}
+            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Stock"
+            value={newProduct.stock}
+            onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="URL de la imagen"
+            value={newProduct.image}
+            onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
+            required
+          />
+          <button type="submit">✅ Agregar Producto</button>
+        </form>
+      )}
     </div>
   );
 };
