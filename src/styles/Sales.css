@@ -1,29 +1,85 @@
-.sales-report-container {
-    width: 90%;
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .sales-report-title {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .chart-wrapper {
-    padding: 10px;
-  }
-  
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .sales-report-container {
-      width: 95%;
-      padding: 15px;
-    }
-  }
-  
+.sales-container {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en una columna */
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 20px;
+  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.sales-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters input, .filters button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.filters button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #45a049;
+}
+
+.sales-stats {
+  display: flex;
+  justify-content: space-around; /* Distribuye las estadísticas */
+  margin-bottom: 20px;
+}
+
+.sales-chart {
+  margin: 20px 0;
+  flex: 1; /* El gráfico ocupa el espacio disponible */
+  max-width: 100%; /* Asegura que no se desborde */
+}
+
+.sales-list {
+  margin-top: 20px;
+  flex: 2; /* La tabla ocupa más espacio */
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+td div {
+  margin-bottom: 5px;
+}

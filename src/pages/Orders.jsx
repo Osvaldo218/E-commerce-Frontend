@@ -28,7 +28,7 @@ const Orders = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, []); // Solo se ejecuta una vez, al montar el componente
 
   if (loading) return <p>Cargando pedidos...</p>;
   if (error) return <p>{error}</p>;
@@ -36,19 +36,19 @@ const Orders = () => {
   return (
     <div className="orders-container">
       <h2>📦 Mis Pedidos</h2>
-
+  
       {orders.length === 0 ? (
         <p>No tienes pedidos aún.</p>
       ) : (
         <div className="orders-list">
           {orders.map((order) => (
-            <div key={order.id} className="order-card">
-              <h3>Pedido #{order.id}</h3>
+            <div key={order._id} className="order-card">
+              <h3>Pedido #{order._id}</h3>
               <p>Estado: <strong>{order.status}</strong></p>
               <p>Fecha: {new Date(order.createdAt).toLocaleDateString()}</p>
               <ul>
-                {order.items.map((item) => (
-                  <li key={item.id}>
+                {order.items && order.items.map((item) => (
+                  <li key={item._id}>
                     {item.name} - {item.quantity} x ${item.price}
                   </li>
                 ))}
@@ -59,7 +59,7 @@ const Orders = () => {
         </div>
       )}
     </div>
-  );
+  );  
 };
 
 export default Orders;
