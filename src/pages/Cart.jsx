@@ -48,7 +48,7 @@ const Cart = () => {
           </div>
 
           <div className="cart-summary">
-            <h3>Total: ${totalPrice.toFixed(2)}</h3>
+            <h3> <span style={{ color: "black" }}>Total: ${totalPrice.toFixed(2)}</span> </h3>
             <button onClick={clearCart} className="clear-cart-btn">Vaciar Carrito</button>
             <Link to="/checkout" className="checkout-btn">Ir a Pagar</Link>
           </div>

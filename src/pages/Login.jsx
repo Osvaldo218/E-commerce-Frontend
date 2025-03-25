@@ -26,7 +26,7 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (err) {
-      setError("❌ Error en login. Verifica tu email y contraseña.");
+      setError(<span style={{ color: "black" }}>❌ Error en login. Verifica tu email y contraseña.</span>);
     } finally {
       setIsLoading(false);
     }

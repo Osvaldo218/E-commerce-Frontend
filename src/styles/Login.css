@@ -40,7 +40,7 @@ html, body {
 
 /* Campos de entrada */
 .login-box input {
-    width: 100%;
+    width: 93%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;

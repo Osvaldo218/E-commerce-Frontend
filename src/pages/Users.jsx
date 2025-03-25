@@ -5,8 +5,10 @@ import "../styles/Users.css";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
+  const [userToDelete, setUserToDelete] = useState(null); // Usuario a eliminar
   const [formData, setFormData] = useState({ name: "", email: "", role: "" });
   const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -27,20 +29,29 @@ const Users = () => {
     }
   };
 
-  // Eliminar usuario
-  const handleDelete = async (id) => {
-    if (window.confirm("¿Seguro que quieres eliminar este usuario?")) {
-      try {
-        const token = localStorage.getItem("token");
-        await axios.delete(`http://localhost:5000/api/users/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+  // Abrir modal de confirmación para eliminar usuario
+  const confirmDelete = (id) => {
+    setUserToDelete(id);
+    setShowDeleteModal(true);
+  };
 
-        // Actualizar la lista después de eliminar
-        setUsers(users.filter((user) => user._id !== id));
-      } catch (error) {
-        console.error("Error eliminando usuario:", error);
-      }
+  // Eliminar usuario
+  const handleDelete = async () => {
+    if (!userToDelete) return;
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:5000/api/users/${userToDelete}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Actualizar la lista después de eliminar
+      setUsers(users.filter((user) => user._id !== userToDelete));
+
+      // Cerrar modal
+      setShowDeleteModal(false);
+      setUserToDelete(null);
+    } catch (error) {
+      console.error("Error eliminando usuario:", error);
     }
   };
 
@@ -59,15 +70,13 @@ const Users = () => {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:5000/api/users/${editingUser._id}`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      console.log("Usuario actualizado:", response.data);
 
       // Actualizar la lista de usuarios
       fetchUsers();
@@ -110,7 +119,7 @@ const Users = () => {
                     </button>
                     <button
                       className="action-btn delete-btn"
-                      onClick={() => handleDelete(user._id)}
+                      onClick={() => confirmDelete(user._id)}
                     >
                       Eliminar
                     </button>
@@ -162,6 +171,18 @@ const Users = () => {
             <button className="close-btn" onClick={() => setEditingUser(null)}>
               Cancelar
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Confirmación de Eliminación */}
+      {showDeleteModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Confirmar Eliminación</h3>
+            <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+            <button className="confirm-btn" onClick={handleDelete}>Eliminar</button>
+            <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Cancelar</button>
           </div>
         </div>
       )}
