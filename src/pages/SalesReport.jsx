@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2"; // Importa Chart.js para gráficos

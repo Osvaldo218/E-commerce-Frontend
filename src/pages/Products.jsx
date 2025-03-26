@@ -119,13 +119,14 @@ const Products = () => {
   const handleAddProduct = async () => {
     try {
       const token = localStorage.getItem("token");
+
       await axios.post(
         "http://localhost:5000/api/products",
         {
           name: newProduct.name,
           price: Number(newProduct.price),
           stock: Number(newProduct.stock),
-          image: newProduct.image,
+          image: newProduct.image, // Ahora usa la URL en lugar de una imagen subida
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -136,7 +137,7 @@ const Products = () => {
       setShowAddModal(false);
       setNewProduct({ name: "", price: "", stock: "", image: "" });
     } catch (error) {
-      console.error("❌ Error al agregar producto:", error.response ? error.response.data : error.message);
+      console.error("❌ Error al agregar producto:", error);
     }
   };
 
@@ -198,20 +199,41 @@ const Products = () => {
         </div>
       )}
 
-      {/* ✅ Modal para agregar nuevo producto */}
-      {showAddModal && (
+        {showAddModal && (
         <div className="modal">
           <div className="modal-content">
             <h3>➕ Agregar Nuevo Producto</h3>
+            
             <label>Nombre:</label>
-            <input type="text" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
+            <input 
+              type="text" 
+              value={newProduct.name} 
+              onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} 
+            />
 
             <label>Precio:</label>
-            <input type="number" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} />
+            <input 
+              type="number" 
+              value={newProduct.price} 
+              onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })} 
+            />
 
             <label>Stock:</label>
-            <input type="number" value={newProduct.stock} onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} />
+            <input 
+              type="number" 
+              value={newProduct.stock} 
+              onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} 
+            />
 
+            {/* Ahora se pide la URL de la imagen en lugar de seleccionar un archivo */}
+            <label>URL de la Imagen:</label>
+            <input 
+              type="text" 
+              value={newProduct.image} 
+              onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} 
+            />
+
+            {/* Botones de guardar y cancelar */}
             <button className="save-btn" onClick={handleAddProduct}>Guardar</button>
             <button className="close-btn" onClick={() => setShowAddModal(false)}>Cancelar</button>
           </div>

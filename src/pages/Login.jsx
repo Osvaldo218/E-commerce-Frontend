@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +26,7 @@ const Login = () => {
       const { data } = await axios.post("http://localhost:5000/api/auth/login", { email, password });
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
-    } catch (err) {
+    } catch (error) {
       setError(<span style={{ color: "black" }}>❌ Error en login. Verifica tu email y contraseña.</span>);
     } finally {
       setIsLoading(false);

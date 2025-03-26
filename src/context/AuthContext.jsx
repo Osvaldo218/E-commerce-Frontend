@@ -48,4 +48,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 // Hook personalizado para usar la autenticación
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

@@ -22,7 +22,7 @@ const UserProfile = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [token]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
