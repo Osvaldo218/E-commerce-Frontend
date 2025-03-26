@@ -143,18 +143,18 @@
   }
 
   .confirm-btn {
-    background: red;
+    background-color: red;
     color: white;
-    padding: 8px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     margin-right: 10px;
   }
   
   .cancel-btn {
-    background: #007bff;
+    background-color: gray;
     color: white;
-    padding: 8px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
   }

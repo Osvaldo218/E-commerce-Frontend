@@ -24,7 +24,7 @@ const SingIn = () => {
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <h2>Registro</h2>
+        <h2>🪪 Registro</h2>
 
         {message && <p className="message">{message}</p>}
 

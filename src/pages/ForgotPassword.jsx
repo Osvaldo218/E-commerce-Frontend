@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-box">
-        <h2>Recuperar Contraseña</h2>
+        <h2>🔐 Recuperar Contraseña</h2>
 
         {message && <p className="message">{message}</p>}
 
