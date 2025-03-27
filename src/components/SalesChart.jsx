@@ -8,7 +8,7 @@ const SalesChart = () => {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/reports/sales")
+    fetch("https://ecommerce-backend-eohg.onrender.com/api/reports/sales")
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item) => item._id);

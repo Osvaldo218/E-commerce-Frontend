@@ -12,7 +12,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       console.log("📡 Fetching products...");
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch("https://ecommerce-backend-eohg.onrender.com/api/products");
       const data = await res.json();
       console.log("✅ API Response:", data);
 

@@ -12,7 +12,7 @@ const ForgotPassword = () => {
   const handleResetPassword = async () => {
     setMessage(""); 
     try {
-      await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/forgot-password", { email });
       setMessage("✅ Revisa tu correo para restablecer tu contraseña.");
     } catch (error) {
       setMessage("❌ No se encontró una cuenta con este correo.");

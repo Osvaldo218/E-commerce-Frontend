@@ -14,7 +14,7 @@ const Singin = () => {
   const handleSingUp = async () => {
     setMessage(""); 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", { name, email, password });
+      await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/register", { name, email, password });
       setMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.");
       setTimeout(() => navigate("/Login"), 1000);
     } catch (error) {

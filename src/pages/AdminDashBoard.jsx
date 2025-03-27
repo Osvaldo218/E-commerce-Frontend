@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/sales")
+    fetch("https://ecommerce-backend-eohg.onrender.com/api/sales")
       .then((res) => res.json())
       .then((data) => setSalesData(data));
   }, []);

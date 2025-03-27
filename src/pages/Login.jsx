@@ -23,7 +23,7 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const { data } = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/login", { email, password });
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (error) {

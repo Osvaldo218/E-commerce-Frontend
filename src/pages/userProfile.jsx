@@ -10,7 +10,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/profile", {
+        const response = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);

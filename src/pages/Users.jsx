@@ -18,7 +18,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await axios.get("http://localhost:5000/api/users", {
+      const { data } = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(data);
@@ -40,7 +40,7 @@ const Users = () => {
     if (!userToDelete) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/users/${userToDelete}`, {
+      await axios.delete(`https://ecommerce-backend-eohg.onrender.com/api/users/${userToDelete}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -71,7 +71,7 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/users/${editingUser._id}`,
+        `https://ecommerce-backend-eohg.onrender.com/api/users/${editingUser._id}`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },

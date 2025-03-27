@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   // Función para iniciar sesión
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const response = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/login", { email, password });
       setUser(response.data.user); // Guardar usuario autenticado
       localStorage.setItem("token", response.data.token); // Guardar JWT en localStorage
       return { success: true };

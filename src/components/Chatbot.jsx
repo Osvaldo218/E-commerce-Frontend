@@ -18,7 +18,7 @@ const Chatbot = () => {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chatbot", { message: input });
+      const response = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/chatbot", { message: input });
       const botMessage = { sender: "bot", text: response.data.reply };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {

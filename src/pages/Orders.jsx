@@ -22,7 +22,7 @@ const Orders = () => {
           return;
         }
 
-        const { data } = await axios.get("http://localhost:5000/api/orders", {
+        const { data } = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/orders", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

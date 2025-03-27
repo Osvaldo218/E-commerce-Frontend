@@ -20,7 +20,7 @@ const Sales = () => {
     const fetchSales = async () => {
       try {
         const token = localStorage.getItem("token");
-        const { data } = await axios.get("http://localhost:5000/api/sales", {
+        const { data } = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/sales", {
           headers: { Authorization: `Bearer ${token}` },
           params: filter,
         });
@@ -37,7 +37,7 @@ const Sales = () => {
     const fetchSalesStats = async () => {
       try {
         const token = localStorage.getItem("token");
-        const { data } = await axios.get("http://localhost:5000/api/sales/stats", {
+        const { data } = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/sales/stats", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSalesStats(data);

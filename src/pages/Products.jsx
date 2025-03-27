@@ -25,7 +25,7 @@ const Products = () => {
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/user", {
+      const response = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/auth/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUserRole(response.data.role);
@@ -38,7 +38,7 @@ const Products = () => {
     try {
       setLoading(true);
       setError(null);
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/products");
 
       if (!Array.isArray(res.data)) {
         throw new Error("La API no devolvió una lista de productos válida.");
@@ -70,7 +70,7 @@ const Products = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:5000/api/products/${editingProduct._id}`,
+        `https://ecommerce-backend-eohg.onrender.com/api/products/${editingProduct._id}`,
         {
           name: editingProduct.name,
           price: Number(editingProduct.price),
@@ -104,7 +104,7 @@ const Products = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/products/${productToDelete._id}`, {
+      await axios.delete(`https://ecommerce-backend-eohg.onrender.com/api/products/${productToDelete._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -121,7 +121,7 @@ const Products = () => {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/products",
+        "https://ecommerce-backend-eohg.onrender.com/api/products",
         {
           name: newProduct.name,
           price: Number(newProduct.price),
