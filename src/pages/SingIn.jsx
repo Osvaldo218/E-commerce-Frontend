@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SingIn.css";
 
-const SingIn = () => {
+const Singin = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSignUp = async () => {
+  const handleSingUp = async () => {
     setMessage(""); 
     try {
       await axios.post("http://localhost:5000/api/auth/register", { name, email, password });
@@ -50,7 +50,7 @@ const SingIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="signup-btn" onClick={handleSignUp}>
+        <button className="signup-btn" onClick={handleSingUp}>
           Registrarse
         </button>
 
@@ -62,4 +62,4 @@ const SingIn = () => {
   );
 };
 
-export default SingIn;
+export default Singin;

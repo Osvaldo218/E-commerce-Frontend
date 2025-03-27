@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import SalesReport from "./pages/SalesReport";
 import Orders from "./pages/Orders";
-import SingIn from "./pages/Singin";
+import Singin from "./pages/Singin";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AdminDashboard from "./pages/AdminDashBoard";
@@ -31,7 +31,7 @@ function App() {
             <Route path="/admin/sales" element={<SalesReport />} />
             <Route path="/admin/orders" element={<Orders />} />
             <Route path="/admin/users" element={<Users />} />
-            <Route path="/singin" element={<SingIn />} />
+            <Route path="/singin" element={<Singin />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/cart" element={<Cart />} />
