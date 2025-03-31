@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = import.meta.env.VITE_BACKEND_URL; // URL del backend desde .env
+const API = import.meta.env.VITE_BACKEND_URL || "https://ecommerce-backend-eohg.onrender.com";
 
 // Obtener productos desde el backend
 export const fetchProducts = async () => {
