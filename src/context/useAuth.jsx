@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import AuthContext from "./AuthContext"; // Importa el contexto separado
+import AuthContext from "./AuthContext";
 
-// Hook personalizado para usar la autenticación
 const useAuth = () => useContext(AuthContext);
 
-export default useAuth;
+export default useAuth; // Exportación por defecto
