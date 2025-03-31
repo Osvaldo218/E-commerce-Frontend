@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2"; // Importa Chart.js para gráficos
-import { useAuth } from "../context/useAuth";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Sales = () => {
-  const { user } = useAuth(); // Obtener usuario logueado
   const [sales, setSales] = useState([]); // Estado para ventas
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
