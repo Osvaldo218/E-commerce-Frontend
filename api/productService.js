@@ -47,7 +47,7 @@ export const createProduct = async (productData) => {
 // Función para obtener el historial de ventas (requiere autenticación)
 export const fetchSalesHistory = async () => {
   try {
-    const response = await axios.get(`${API}/api/sales/history`, { withCredentials: true });
+    const response = await axios.get(`${API}/api/sales/stats`, { withCredentials: true });
     return response.data; // Devuelve el historial de ventas
   } catch (error) {
     console.error("Error obteniendo historial de ventas:", error);
@@ -73,7 +73,7 @@ export const updateProfile = async (userData) => {
 // Función para obtener el usuario autenticado
 export const getAuthenticatedUser = async () => {
   try {
-    const response = await axios.get(`${API}/api/auth/user`, { withCredentials: true });
+    const response = await axios.get(`${API}/api/auth/user/profile`, { withCredentials: true });
     return response.data; // Devuelve los datos del usuario autenticado
   } catch (error) {
     console.error("Error obteniendo el usuario:", error);
