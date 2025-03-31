@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -23,13 +22,15 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const { data } = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/login", { email, password });
-      localStorage.setItem("token", data.token);
-      navigate("/dashboard");
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
+      console.log("✅ Login exitoso", res.data);
     } catch (error) {
-      setError(<span style={{ color: "black" }}>❌ Error en login. Verifica tu email y contraseña.</span>);
-    } finally {
-      setIsLoading(false);
+      console.error("❌ Error en login:", error.response?.data || error);
     }
   };
 
