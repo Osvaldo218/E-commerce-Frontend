@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext"; // Si tienes autenticación
+import { useAuth } from "../context/useAuth"; // Si tienes autenticación
 import "../styles/Orders.css"; // Asegúrate de tener estilos
 
 const Orders = () => {
