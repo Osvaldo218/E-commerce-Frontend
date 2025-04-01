@@ -42,7 +42,7 @@
 .chatbot-header {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  padding: 15px;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
