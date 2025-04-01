@@ -166,10 +166,10 @@ const Products = () => {
               <button onClick={() => addToCart(product)}>🛒 Agregar al Carrito</button>
 
               {userRole === "admin" && (
-                <>
+                <div class="button-container">
                   <button className="edit-btn" onClick={() => startEditing(product)}>✏️ Editar</button>
                   <button className="delete-btn" onClick={() => confirmDelete(product)}>🗑️ Eliminar</button>
-                </>
+                </div>
               )}
             </div>
           ))}
