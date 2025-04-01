@@ -1,149 +1,99 @@
-/* Estilo de la navbar */
+/* Estilos generales */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    padding: 15px 30px;
-    color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo a {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.menu-toggle {
+  display: none; /* Oculto en pantallas grandes */
+  cursor: pointer;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-links a:hover {
+  color: #ffcc00;
+}
+
+/* Ícono del carrito */
+.cart-icon {
+  position: relative;
+}
+
+.cart-badge {
+  position: auto;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* RESPONSIVE - Menú hamburguesa */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: block;
   }
-  
-  /* Logo de la tienda */
-  .navbar-logo a {
-    font-size: 22px;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo span {
-    margin-left: 8px;
-  }
-  
-  /* Links de navegación */
-  .navbar-links {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .navbar-links li {
-    margin: 0 15px;
-  }
-  
-  .navbar-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .navbar-links a:hover {
-    color: #ffd700; /* Amarillo al pasar el mouse */
-  }
-  
-  /* Iconos dentro de los links */
-  .navbar-links a svg {
-    margin-right: 5px;
-  }
-  
-  /* Estilo del ícono del carrito */
-  .cart-icon {
-    position: relative;
-  }
-  
-  .cart-icon a {
-    display: flex;
-    align-items: center;
-    margin-left: -40%;
-  }
-  
-  /* Insignia con el número de productos en el carrito */
-  .cart-badge {
-    position: absolute;
-    top: -5px;
-    right: 12%;
-    background: #ff3d3d;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 3px 7px;
-    border-radius: 50%;
-  }
-  
-  /* Diseño responsive */
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .navbar-links {
-      margin-top: 10px;
-      flex-direction: column;
-    }
-  
-    .navbar-links li {
-      margin: 10px 0;
-    }
-  }
+
   .navbar {
-    width: 100%;
-    background-color: #007bff;
-    color: white;
-    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  .navbar-logo {
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
+
   .navbar-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .navbar-links.active {
     display: flex;
-    gap: 20px;
   }
-  
-  .navbar-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease-in-out;
+
+  .navbar-links li {
+    padding: 5px 15px
   }
-  
-  .navbar-links a:hover {
-    color: #ffcc00;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .navbar-links {
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  
-  .app-container {
-    padding-top: 60px;
-  }
-  
+}

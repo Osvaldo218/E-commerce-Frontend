@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import SalesReport from "./pages/SalesReport";
 import Orders from "./pages/Orders";
-import Singin from "./pages/Singin";
+import Singin from "./pages/SingIn";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AdminDashboard from "./pages/AdminDashBoard";

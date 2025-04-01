@@ -80,18 +80,35 @@
     background: #b02a37;
   }
   
-  /* Diseño Responsive */
-  @media (max-width: 768px) {
-    th, td {
-      font-size: 14px;
+/* Diseño Responsive */
+@media (max-width: 768px) {
+  .users-container {
       padding: 10px;
-    }
-  
-    .action-btn {
-      font-size: 12px;
-      padding: 6px 10px;
-    }
   }
+
+  /* Reducir tamaño de fuente y padding */
+  th, td {
+      font-size: 12px;
+      padding: 6px;
+  }
+
+  table {
+      min-width: 100%; /* Se asegura que la tabla no se corte */
+      font-size: 12px; /* Reduce el tamaño del texto en móviles */
+  }
+
+  /* Hacer que los botones no se amontonen */
+  .action-btn {
+      font-size: 10px;
+      padding: 5px;
+      width: 80px;
+      text-align: center;
+  }
+
+  .delete-btn {
+      margin-left: 5px;
+  }
+}
   
   /* Modal */
 .modal {

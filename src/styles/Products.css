@@ -1,117 +1,124 @@
 .products-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    text-align: center;
-  }
-  
-  .products-title {
-    font-size: 24px;
-    color: white;
-    margin-bottom: 20px;
-  }
-  
-  .loading-text,
-  .no-products {
-    font-size: 18px;
-    color: #777;
-  }
-  
-  /* Estilos del formulario */
-  .product-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: 0 auto 20px;
-  }
-  
-  .product-form input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .product-form button {
-    padding: 10px;
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .product-form button:hover {
-    background-color: #219150;
-  }
-  
-  .products-grid {
-    display: flex;
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-    white-space: nowrap; /* Evita el salto de línea */
-    gap: 15px;
-    padding: 10px;
-    scroll-behavior: smooth; /* Hace que el scroll sea más fluido */
-  }
-  
-  /* Ocultar la barra de desplazamiento en navegadores modernos */
-  .products-grid::-webkit-scrollbar {
-    height: 8px;
-  }
-  
-  .products-grid::-webkit-scrollbar-thumb {
-    background: #007bff;
-    border-radius: 4px;
-  }
-  
-  .products-grid::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  text-align: center;
+}
 
-  .product-card {
-    flex: 0 0 auto;
-    width: auto;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-image {
-    width: 100%;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .product-name {
-    font-size: 18px;
-    color: #333;
-    margin: 10px 0;
-  }
-  
-  .product-price {
-    font-size: 16px;
-    font-weight: bold;
-    color: #27ae60;
-  }
-  
-  .product-stock {
-    font-size: 14px;
-    color: #555;
-  }
+/* Título */
+.products-title {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 480px;
+}
 
-  /* Botón de actualización */
+/* Formulario de producto */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto 20px;
+}
+
+.product-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.product-form button {
+  padding: 10px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.product-form button:hover {
+  background-color: #219150;
+}
+
+/* Diseño de la lista de productos */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los productos se acomoden en filas */
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+}
+
+/* Tarjetas de producto */
+.product-card {
+  width: 220px; /* Tamaño estándar */
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Imagen del producto */
+.product-image {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Información del producto */
+.product-name {
+  font-size: 18px;
+  color: #333;
+  margin: 10px 0;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.product-stock {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botones */
+.action-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.add-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+/* Botón de actualización */
 .refresh-button {
   background-color: #f39c12;
   color: white;
@@ -133,57 +140,86 @@
 .add-product-btn:hover {
   background-color: #2980b9;
 }
-  
-  .edit-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    margin: 5px;
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Imagen de vista previa */
+.preview-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* 🟢 **Diseño Responsivo para móviles** */
+@media (max-width: 768px) {
+  .products-container {
+      width: 100%;
   }
-  
-  .delete-btn {
-    background-color: #e74c3c;
+
+  .products-title {
+    font-size: 20px;
     color: white;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    margin: 5px;
+    margin-bottom: 1800px;
   }
-  
+
+  .products-grid {
+      flex-direction: column; /* Poner los productos en una columna */
+      align-items: center;
+  }
+
+  .product-card {
+      width: 70%; /* Hacer las tarjetas más pequeñas */
+      padding: 10px;
+  }
+
+  .product-image {
+      max-height: 120px; /* Reducir el tamaño de la imagen */
+  }
+
+  .product-name {
+      font-size: 16px;
+  }
+
+  .product-price {
+      font-size: 14px;
+  }
+
+  .product-stock {
+      font-size: 12px;
+  }
+
+  /* Reducir botones */
+  .action-btn {
+      font-size: 12px;
+      padding: 6px 10px;
+  }
+
+  .edit-btn, .delete-btn {
+      padding: 10px;
+  }
+
   .add-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    margin: 10px 0;
-    margin-left: 5%;  
+      font-size: 14px;
+      padding: 8px;
   }
-  
-  .modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .preview-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
+}
