@@ -90,16 +90,37 @@
   color: #555;
 }
 
-/* Botones */
+/* 🟢 Contenedor de botones dentro de cada tarjeta */
+.button-container {
+  display: flex;
+  justify-content: center; /* Centrar los botones */
+  gap: 10px; /* Espaciado entre botones */
+  margin-top: 10px; /* Separar de la información del producto */
+}
+
+/* Estilos de botones */
 .action-btn {
-  padding: 8px 12px;
+  flex: 1; /* Hacer que los botones se expandan */
+  padding: 10px;
   border: none;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
+  text-align: center;
   transition: background 0.3s;
+  min-width: 80px; /* Asegurar que no sean muy pequeños */
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row; /* Hace que los botones estén en columna */
+  align-items: center; /* Centra los botones */
+  gap: 10px; /* Espaciado entre botones */
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Colores individuales */
 .edit-btn {
   background-color: #4caf50;
   color: white;
@@ -113,9 +134,19 @@
 .add-btn {
   background-color: #3498db;
   color: white;
-  padding: 10px;
-  cursor: pointer;
-  margin: 10px 0;
+}
+
+/* Efectos hover */
+.edit-btn:hover {
+  background-color: #388e3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.add-btn:hover {
+  background-color: #2980b9;
 }
 
 /* Botón de actualización */
@@ -170,10 +201,11 @@
   border: 1px solid #ccc;
 }
 
-/* 🟢 **Diseño Responsivo para móviles** */
+/* 🟢 Diseño Responsivo para móviles */
 @media (max-width: 768px) {
   .products-container {
-      width: 100%;
+      width: 105%;
+      margin-top: 10%;
   }
 
   .products-title {
@@ -188,7 +220,7 @@
   }
 
   .product-card {
-      width: 70%; /* Hacer las tarjetas más pequeñas */
+      width: 65%; /* Hacer las tarjetas más pequeñas */
       padding: 10px;
   }
 
@@ -208,18 +240,18 @@
       font-size: 12px;
   }
 
-  /* Reducir botones */
+  /* 🔹 Centrar botones en móviles */
+  .button-container {
+    display: flex;
+    flex-direction: row; /* Hace que los botones estén en columna */
+    align-items: center; /* Centra los botones */
+    gap: 10px; /* Espaciado entre botones */
+    margin-top: 10px;
+    width: 100%;
+  }
+
   .action-btn {
-      font-size: 12px;
-      padding: 6px 10px;
-  }
-
-  .edit-btn, .delete-btn {
-      padding: 10px;
-  }
-
-  .add-btn {
-      font-size: 14px;
-      padding: 8px;
+      width: 100%;
+      padding: 12px;
   }
 }
