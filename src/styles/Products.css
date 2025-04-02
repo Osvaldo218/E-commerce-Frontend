@@ -205,7 +205,7 @@
 @media (max-width: 768px) {
   .products-container {
       width: 105%;
-      margin-top: 95%;
+      margin-top: 20%;
   }
 
   .products-title {
