@@ -95,7 +95,7 @@ const Users = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
+              
               <th>Nombre</th>
               <th>Email</th>
               <th>Rol</th>
@@ -106,7 +106,7 @@ const Users = () => {
             {users.length > 0 ? (
               users.map((user) => (
                 <tr key={user._id}>
-                  <td>{user._id}</td>
+                  
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>

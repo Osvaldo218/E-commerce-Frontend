@@ -126,7 +126,7 @@ const Products = () => {
           name: newProduct.name,
           price: Number(newProduct.price),
           stock: Number(newProduct.stock),
-          image: newProduct.image, // Ahora usa la URL en lugar de una imagen subida
+          image: newProduct.image,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -144,10 +144,10 @@ const Products = () => {
   return (
     <div className="products-container">
       <h2 className="products-title">Lista de Productos</h2>
-      <button onClick={fetchProducts} className="refresh-button">🔄 Actualizar Productos</button>
+      <button onClick={fetchProducts} className="refresh-button">🔄 Actualizar</button>
 
       {userRole === "admin" && (
-        <button className="add-product-btn" onClick={() => setShowAddModal(true)}>➕ Agregar Producto</button>
+        <button className="add-product-btn" onClick={() => setShowAddModal(true)}>➕ Agregar</button>
       )}
 
       {error && <p className="error-message">{error}</p>}
