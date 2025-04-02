@@ -9,7 +9,7 @@
 .products-title {
   font-size: 24px;
   color: white;
-  margin-bottom: 480px;
+  margin-top: 50%;
 }
 
 /* Formulario de producto */
@@ -205,13 +205,12 @@
 @media (max-width: 768px) {
   .products-container {
       width: 125%;
-      margin-top: 120%;
   }
 
   .products-title {
     font-size: 20px;
     color: white;
-    margin-bottom: 1800px;
+    margin-top: 650%;
   }
 
   .products-grid {
