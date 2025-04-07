@@ -10,10 +10,11 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const CheckoutPage = () => {
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get("session_id"); // Obtener el session_id de la URL
+  const sessionId = searchParams.get("session_id");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [orderDetails, setOrderDetails] = useState(null);
 
   useEffect(() => {
     const confirmPayment = async () => {
@@ -28,16 +29,19 @@ const CheckoutPage = () => {
 
           if (data.success) {
             // Guardar la venta en la base de datos
-            await axios.post("https://ecommerce-backend-eohg.onrender.com/api/sales/create", {
+            const saleData = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/sales/create", {
               userId: data.userId,
               products: data.products,
               totalAmount: data.amount,
               status: "Pagado",
             });
 
+            // Establecer los detalles de la orden
+            setOrderDetails(saleData.data);
+
             // Redirigir a la página de órdenes después del pago
             setTimeout(() => {
-              navigate("/admin/orders");
+              navigate("/orders");
             }, 2000);
           } else {
             setError("Hubo un problema con el pago. Intenta nuevamente.");
@@ -67,6 +71,21 @@ const CheckoutPage = () => {
         ) : sessionId ? (
           error ? (
             <p className="error-message">❌ {error}</p>
+          ) : orderDetails ? (
+            <div className="order-summary">
+              <h3>Gracias por tu compra!</h3>
+              <p>Tu pedido ha sido procesado exitosamente.</p>
+              <h4>Detalles del pedido:</h4>
+              <ul>
+                {orderDetails.products.map((product, index) => (
+                  <li key={index}>
+                    {product.name} - {product.quantity} x ${product.price}
+                  </li>
+                ))}
+              </ul>
+              <p>Total: ${orderDetails.totalAmount}</p>
+              <p>Fecha de entrega estimada: {orderDetails.deliveryDate}</p>
+            </div>
           ) : (
             <p className="success-message">✅ Pago exitoso. Redirigiendo a Mis Compras...</p>
           )

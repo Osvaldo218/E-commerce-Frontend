@@ -92,6 +92,7 @@ const Users = () => {
       {loading ? (
         <p>Cargando usuarios...</p>
       ) : (
+        <div className="table-container">
         <table>
           <thead>
             <tr>
@@ -135,6 +136,7 @@ const Users = () => {
             )}
           </tbody>
         </table>
+        </div>
       )}
 
       {/* Modal de Edición */}

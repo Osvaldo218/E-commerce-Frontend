@@ -1,12 +1,11 @@
 /* Contenedor principal del carrito */
 .cart-container {
-  max-width: 850px;
-  margin: 40px auto;
+  max-height: 400px;
+  overflow-y: auto;
   padding: 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 8px;
 }
 
 .cart-container:hover {

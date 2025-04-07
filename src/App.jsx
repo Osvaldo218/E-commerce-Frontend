@@ -15,6 +15,8 @@ import Cart from "./pages/Cart";
 import { AuthProvider } from "./context/AuthContext";
 import UserProfile from "./pages/userProfile";
 import Users from "./pages/Users";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
         </div>
         <Chatbot />
       </Router>
+      <ToastContainer position="top-right" autoClose={2000} />
     </CartProvider>
     </AuthProvider>
   );

@@ -13,6 +13,7 @@ const Products = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newProduct, setNewProduct] = useState({ name: "", price: "", stock: "", image: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { addToCart } = useContext(CartContext);
 
@@ -52,6 +53,10 @@ const Products = () => {
       setLoading(false);
     }
   };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ); 
 
   const startEditing = (product) => {
     setEditingProduct({ ...product });
@@ -144,6 +149,13 @@ const Products = () => {
   return (
     <div className="products-container">
       <h2 className="products-title">Lista de Productos</h2>
+      <input
+        type="text"
+        className="search-bar"
+        placeholder="🔍 Buscar producto..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <button onClick={fetchProducts} className="refresh-button">🔄 Actualizar</button>
 
       {userRole === "admin" && (
@@ -153,11 +165,11 @@ const Products = () => {
       {error && <p className="error-message">{error}</p>}
       {loading ? (
         <p className="loading-text">⏳ Cargando productos...</p>
-      ) : products.length === 0 ? (
+      ) : filteredProducts.length === 0 ? (
         <p className="no-products">⚠️ No hay productos disponibles.</p>
       ) : (
         <div className="products-grid">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div key={product._id} className="product-card">
               <img src={product.image || "https://via.placeholder.com/150"} alt={product.name} className="product-image" />
               <h3 className="product-name">{product.name}</h3>
