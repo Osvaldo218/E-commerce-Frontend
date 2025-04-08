@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../context/useAuth";
-import "../styles/Orders.css"; // Asegúrate de tener estilos
+import "../styles/Orders.css";
+import { toast } from "react-toastify"; 
 
 const Orders = () => {
   const { user } = useAuth(); // Obtener usuario logueado
@@ -15,9 +16,18 @@ const Orders = () => {
       try {
         const token = localStorage.getItem("token");
 
-        // Si no hay token, redirigir al login
         if (!token) {
-          setError("No estás autenticado. Inicia sesión para ver tus pedidos.");
+          setError("🚫 No estás autenticado. Inicia sesión para ver tus pedidos.");
+          toast.error("🚫 No estás autenticado. Inicia sesión para continuar.", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
           setLoading(false);
           return;
         }
@@ -26,18 +36,30 @@ const Orders = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("Pedidos recibidos:", data); // 🔍 Verificar en consola
+        console.log("📦 Pedidos recibidos:", data);
         setOrders(data);
+        toast.success("✅ Pedidos cargados correctamente.", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
       } catch (err) {
-        console.error("Error al obtener pedidos:", err);
-        setError("Error al cargar pedidos. Intenta nuevamente.");
+        console.error("❌ Error al obtener pedidos:", err);
+        setError("❌ Error al cargar pedidos. Intenta nuevamente.");
+        toast.error("❌ No se pudieron cargar los pedidos.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchOrders();
-  }, []); // Solo se ejecuta una vez, al montar el componente
+  }, []);
 
   if (loading) return <p>Cargando pedidos...</p>;
   if (error) return <p className="error-message">{error}</p>;

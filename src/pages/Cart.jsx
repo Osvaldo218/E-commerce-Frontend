@@ -31,17 +31,17 @@ const Cart = () => {
 
                   <div className="cart-item-actions">
                     <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="qty-btn">
-                      <Minus size={16} />
+                      <Minus size={12} />
                     </button>
-                    <span className="cart-item-quantity">{item.quantity}</span>
+                    <span className="cart-item-quantity"> </span>
                     <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="qty-btn">
-                      <Plus size={16} />
+                      <Plus size={12} />
                     </button>
                   </div>
                 </div>
 
                 <button onClick={() => removeFromCart(item.id)} className="cart-remove-btn">
-                  <Trash2 size={20} />
+                  <Trash2 size={24} />
                 </button>
               </div>
             ))}
