@@ -18,7 +18,7 @@ const Orders = () => {
 
         if (!token) {
           setError("🚫 No estás autenticado. Inicia sesión para ver tus pedidos.");
-          toast.error("🚫 No estás autenticado. Inicia sesión para continuar.", {
+          toast.error("No estás autenticado. Inicia sesión para continuar.", {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
