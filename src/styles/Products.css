@@ -214,13 +214,13 @@
 /* 🟢 Diseño Responsivo para móviles */
 @media (max-width: 768px) {
   .products-container {
-      width: 125%;
+      width: 100%;
   }
 
   .products-title {
     font-size: 20px;
     color: white;
-    margin-top: 510%;
+    margin-top: 500%;
   }
 
   .products-grid {
