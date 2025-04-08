@@ -96,7 +96,7 @@
 /* Diseño Responsive */
 @media (max-width: 768px) {
   .users-container {
-    width: 50%;
+    width: auto;
       padding: 10px;
   }
 
