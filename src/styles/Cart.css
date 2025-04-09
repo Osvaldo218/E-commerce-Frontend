@@ -214,4 +214,11 @@
   .cart-summary {
     text-align: center;
   }
+  .cart-remove-btn {
+    background: transparent;
+    border: none;
+    color: #ff3d3d;
+    transition: color 0.3s, transform 0.2s;
+    margin-top: -10%;
+  }
 }
