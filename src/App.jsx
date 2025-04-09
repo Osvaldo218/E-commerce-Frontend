@@ -4,6 +4,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import SalesReport from "./pages/SalesReport";
+import AdminOrders from "./pages/AdminOrders";
 import Orders from "./pages/Orders";
 import Singin from "./pages/Singin";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -27,6 +28,7 @@ function App() {
         <div className="app-container">
           <Routes>
             <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/orders" element={<AdminOrders />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin/products" element={<Products />} />

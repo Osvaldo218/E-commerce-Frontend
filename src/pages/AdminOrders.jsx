@@ -16,7 +16,7 @@ const AdminOrders = () => {
         return;
       }
 
-      const response = await fetch("  ", {
+      const response = await fetch("https://ecommerce-backend-eohg.onrender.com/api/orders", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const AdminOrders = () => {
 
   return (
     <div>
-      <h2>📦 Pedidos de Clientes</h2>
+      <h2>📚 Pedidos de Clientes</h2>
 
       {loading ? (
         <p>Cargando pedidos...</p>

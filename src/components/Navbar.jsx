@@ -44,6 +44,7 @@ const Navbar = (onSearch) => {
         <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}><Home size={20} /> Inicio</Link></li>
         <li><Link to="/admin/products" onClick={() => setMenuOpen(false)}>📦 Productos</Link></li>
         <li><Link to="/admin/orders" onClick={() => setMenuOpen(false)}>📜 Pedidos</Link></li>
+        <li><Link to="/orders" onClick={() => setMenuOpen(false)}>📚 Pedidos de Clientes</Link></li>
         <li><Link to="/Perfil" onClick={() => setMenuOpen(false)}><User size={20} /> Mi Cuenta</Link></li>
         <li><Link to="/admin/users" onClick={() => setMenuOpen(false)}><FaUsers size={20} /> Usuarios</Link></li>
         <li className="cart-icon">
