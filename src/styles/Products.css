@@ -220,7 +220,7 @@
   .products-title {
     font-size: 20px;
     color: white;
-    margin-top:800%;
+    margin-top:750%;
   }
 
   .products-grid {
@@ -249,12 +249,11 @@
       font-size: 12px;
   }
 
-  /* 🔹 Centrar botones en móviles */
   .button-container {
     display: flex;
-    flex-direction: row; /* Hace que los botones estén en columna */
-    align-items: center; /* Centra los botones */
-    gap: 10px; /* Espaciado entre botones */
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     margin-top: 10px;
     width: 100%;
   }
