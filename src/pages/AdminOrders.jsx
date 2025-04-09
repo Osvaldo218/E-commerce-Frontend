@@ -20,7 +20,7 @@ const AdminOrders = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Se envía el token en la cabecera
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -30,8 +30,21 @@ const AdminOrders = () => {
       }
 
       const data = await response.json();
-      console.log("📌 Órdenes obtenidas:", data); // ✅ Depuración
-      setOrders(data);
+      console.log("📌 Órdenes obtenidas:", data);
+
+      // Si no hay órdenes, añade una orden de ejemplo para mostrar en pantalla
+      if (data.length === 0) {
+        const ordenEjemplo = {
+          _id: "ORD-EJEMPLO-001",
+          user: { name: "Juan Pérez" },
+          totalPrice: 1599.99,
+          createdAt: new Date().toISOString(),
+          orderStatus: "Pendiente",
+        };
+        setOrders([ordenEjemplo]);
+      } else {
+        setOrders(data);
+      }
     } catch (error) {
       console.error("❌ Error en fetchOrders:", error);
       setError(error.message);
