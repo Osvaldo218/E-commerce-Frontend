@@ -99,9 +99,8 @@
   margin-top: 10px; /* Separar de la información del producto */
 }
 
-/* Estilos de botones */
 .action-btn {
-  flex: 1; /* Hacer que los botones se expandan */
+  flex: 1;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -109,19 +108,18 @@
   cursor: pointer;
   text-align: center;
   transition: background 0.3s;
-  min-width: 80px; /* Asegurar que no sean muy pequeños */
+  min-width: 80px;
 }
 
 .button-container {
   display: flex;
-  flex-direction: row; /* Hace que los botones estén en columna */
-  align-items: center; /* Centra los botones */
-  gap: 10px; /* Espaciado entre botones */
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   margin-top: 10px;
   width: 100%;
 }
 
-/* Colores individuales */
 .edit-btn {
   background-color: #4caf50;
   color: white;
@@ -221,6 +219,7 @@
     font-size: 20px;
     color: white;
     margin-top:740%;
+    position: relative;
   }
 
   .products-grid {
