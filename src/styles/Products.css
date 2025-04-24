@@ -45,7 +45,7 @@
 /* Diseño de la lista de productos */
 .products-grid {
   display: flex;
-  flex-wrap: wrap; /* Permite que los productos se acomoden en filas */
+  flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   padding: 10px;
@@ -53,7 +53,7 @@
 
 /* Tarjetas de producto */
 .product-card {
-  width: 220px; /* Tamaño estándar */
+  width: 220px;
   background: white;
   padding: 15px;
   border-radius: 8px;
@@ -94,9 +94,9 @@
 /* 🟢 Contenedor de botones dentro de cada tarjeta */
 .button-container {
   display: flex;
-  justify-content: center; /* Centrar los botones */
-  gap: 10px; /* Espaciado entre botones */
-  margin-top: 10px; /* Separar de la información del producto */
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .action-btn {
