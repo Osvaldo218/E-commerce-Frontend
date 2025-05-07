@@ -1,15 +1,47 @@
 /* Contenedor principal del carrito */
 .cart-container {
-  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 70vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   overflow-y: auto;
-  padding: 25px;
-  border: 1px solid #ccc;
-  background-color: white;
-  border-radius: 8px;
+  padding: 30px 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #6a5acd #e0e0e0; /* Firefox */
 }
 
 .cart-container:hover {
   transform: scale(1.01);
+}
+
+/* Scrollbar personalizada para Chrome, Edge y otros WebKit */
+.cart-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cart-container::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+.cart-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6a5acd, #8a2be2);
+  border-radius: 10px;
+  border: 2px solid #e0e0e0;
+  transition: background 0.3s;
+}
+
+.cart-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #483d8b, #7b68ee);
 }
 
 /* Título del carrito */
