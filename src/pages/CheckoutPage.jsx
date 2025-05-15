@@ -21,28 +21,32 @@ const CheckoutPage = () => {
       if (sessionId) {
         try {
           setLoading(true);
-          // Verifica el estado del pago en el backend
+
+          // Confirmar el pago con el backend
           const { data } = await axios.post(
             "https://ecommerce-backend-eohg.onrender.com/api/payment/confirm-payment",
             { sessionId }
           );
 
           if (data.success) {
-            // Guardar la venta en la base de datos
+            // Generar fecha de entrega estimada (ej. +5 días)
+            const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString("es-ES");
+
+            // Crear venta en la base de datos
             const saleData = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/sales/create", {
               userId: data.userId,
               products: data.products,
               totalAmount: data.amount,
               status: "Pagado",
+              deliveryDate,
             });
 
-            // Establecer los detalles de la orden
             setOrderDetails(saleData.data);
 
-            // Redirigir a la página de órdenes después del pago
+            // Redirigir después de mostrar resumen
             setTimeout(() => {
               navigate("/orders");
-            }, 2000);
+            }, 4000); // 4 segundos para que el usuario lea el resumen
           } else {
             setError("Hubo un problema con el pago. Intenta nuevamente.");
           }
@@ -73,15 +77,19 @@ const CheckoutPage = () => {
             <p className="error-message">❌ {error}</p>
           ) : orderDetails ? (
             <div className="order-summary">
-              <h3>Gracias por tu compra!</h3>
+              <h3>¡Gracias por tu compra!</h3>
               <p>Tu pedido ha sido procesado exitosamente.</p>
               <h4>Detalles del pedido:</h4>
               <ul>
-                {orderDetails.products.map((product, index) => (
-                  <li key={index}>
-                    {product.name} - {product.quantity} x ${product.price}
-                  </li>
-                ))}
+                {orderDetails.products?.length > 0 ? (
+                  orderDetails.products.map((product, index) => (
+                    <li key={index}>
+                      {product.name} - {product.quantity} x ${product.price}
+                    </li>
+                  ))
+                ) : (
+                  <li>No hay productos en el pedido.</li>
+                )}
               </ul>
               <p>Total: ${orderDetails.totalAmount}</p>
               <p>Fecha de entrega estimada: {orderDetails.deliveryDate}</p>
