@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,7 +12,6 @@ const AdminOrders = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("❌ No hay token almacenado");
         setError("No autorizado. Inicia sesión.");
         setLoading(false);
         return;
@@ -26,28 +27,36 @@ const AdminOrders = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message || "Error en la petición"}`);
+        throw new Error(errorData.message || "Error en la petición");
       }
 
       const data = await response.json();
-      console.log("📌 Órdenes obtenidas:", data);
 
-      // Si no hay órdenes, añade una orden de ejemplo para mostrar en pantalla
-      if (data.length === 0) {
-        const ordenEjemplo = {
-          _id: "ORD-EJEMPLO-001",
-          user: { name: "Juan Pérez" },
-          totalPrice: 1599.99,
-          createdAt: new Date().toISOString(),
-          orderStatus: "Pendiente",
-        };
-        setOrders([ordenEjemplo]);
-      } else {
-        setOrders(data);
-      }
+      const filteredOrders = data.filter(
+        (order) =>
+          order._id &&
+          typeof order.totalPrice === "number" &&
+          order.orderStatus !== undefined
+      );
+
+      setOrders(filteredOrders);
+
+      // Notificación exitosa
+      toast.success("✅ Pedidos cargados correctamente", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     } catch (error) {
-      console.error("❌ Error en fetchOrders:", error);
       setError(error.message);
+      toast.error("❌ Error al cargar pedidos", {
+        position: "bottom-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     } finally {
       setLoading(false);
     }
@@ -58,8 +67,18 @@ const AdminOrders = () => {
   }, []);
 
   const updateOrderStatus = async (orderId, status) => {
-    try {
-      const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setError("No autorizado. Inicia sesión.");
+      toast.error("⚠️ No autorizado. Inicia sesión.", {
+        position: "bottom-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
+      return;
+    }
 
       const response = await fetch(`https://ecommerce-backend-eohg.onrender.com/api/orders/${orderId}/status`, {
         method: "PUT",
@@ -79,44 +98,50 @@ const AdminOrders = () => {
           order._id === orderId ? { ...order, orderStatus: status } : order
         )
       );
+
+      // Notificación éxito al actualizar estado
+      toast.success("✅ Estado del pedido actualizado", {
+        position: "bottom-right",
+        autoClose: 2500,
+        theme: "dark",
+      });
     } catch (error) {
-      console.error("❌ Error al actualizar estado del pedido:", error);
       setError(error.message);
+      toast.error("❌ Error al actualizar estado del pedido", {
+        position: "bottom-right",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 
+  if (loading) return <p>Cargando pedidos...</p>;
+  if (error) return <p className="error">{error}</p>;
+  if (orders.length === 0) return <p>No hay pedidos disponibles.</p>;
+
   return (
-    <div>
+    <>
       <h2>📚 Pedidos de Clientes</h2>
+      {orders.map((order) => (
+        <div key={order._id} className="order-card">
+          <p>🆔 Orden ID: {order._id}</p>
+          <p>👤 Cliente: {order.user?.name || "Desconocido"}</p>
+          <p>💰 Total: ${typeof order.totalPrice === "number" ? order.totalPrice.toFixed(2) : "0.00"}</p>
+          <p>📅 Fecha: {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "Sin fecha"}</p>
+          <p>🚀 Estado: {order.orderStatus || "Desconocido"}</p>
 
-      {loading ? (
-        <p>Cargando pedidos...</p>
-      ) : error ? (
-        <p className="error">{error}</p>
-      ) : orders.length === 0 ? (
-        <p>No hay pedidos disponibles.</p>
-      ) : (
-        orders.map((order) => (
-          <div key={order._id} className="order-card">
-            <p>🆔 Orden ID: {order._id}</p>
-            <p>👤 Cliente: {order.user?.name || "Desconocido"}</p>
-            <p>💰 Total: ${order.totalPrice.toFixed(2)}</p>
-            <p>📅 Fecha: {new Date(order.createdAt).toLocaleDateString()}</p>
-            <p>🚀 Estado: {order.orderStatus}</p>
-
-            <select
-              value={order.orderStatus}
-              onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-            >
-              <option value="Pendiente">Pendiente</option>
-              <option value="Enviado">Enviado</option>
-              <option value="Entregado">Entregado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
-          </div>
-        ))
-      )}
-    </div>
+          <select
+            value={order.orderStatus || "Pendiente"}
+            onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+          >
+            <option value="Pendiente">Pendiente</option>
+            <option value="Enviado">Enviado</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+        </div>
+      ))}
+    </>
   );
 };
 

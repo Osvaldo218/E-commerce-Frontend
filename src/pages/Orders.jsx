@@ -36,8 +36,12 @@ const Orders = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("📦 Pedidos recibidos:", data);
-        setOrders(data);
+        // Filtrar pedidos reales que tengan al menos un producto
+        const validOrders = data.filter(order =>
+          Array.isArray(order.items) && order.items.length > 0 && typeof order.total === "number"
+        );
+
+        setOrders(validOrders);
         toast.success("✅ Pedidos cargados correctamente.", {
           position: "bottom-right",
           autoClose: 2000,
@@ -75,20 +79,20 @@ const Orders = () => {
           {orders.map((order) => (
             <div key={order._id} className="order-card">
               <h3>Pedido #{order._id}</h3>
-              <p>Estado: <strong>{order.status}</strong></p>
+              <p>Estado: <strong>{order.status || "Desconocido"}</strong></p>
               <p>
                 Fecha:{" "}
-                {new Date(order.createdAt).toLocaleDateString("es-ES", {
+                {order.createdAt ? new Date(order.createdAt).toLocaleDateString("es-ES", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                })}
+                }) : "Sin fecha"}
               </p>
               <ul>
-                {order.items && order.items.map((item) => (
-                  <li key={item._id}>
-                    {item.name} - {item.quantity} x ${item.price}
+                {order.items.map((item) => (
+                  <li key={item._id || item.name}>
+                    {item.name} - {item.quantity} x ${item.price?.toFixed?.(2) || "0.00"}
                   </li>
                 ))}
               </ul>
