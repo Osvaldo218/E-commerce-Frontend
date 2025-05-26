@@ -6,8 +6,8 @@ import "../styles/Orders.css";
 import Swal from "sweetalert2";
 
 const Orders = () => {
-  const { user } = useAuth(); // Obtener usuario logueado
-  const [orders, setOrders] = useState([]); // Estado para pedidos
+  const { user } = useAuth();
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
