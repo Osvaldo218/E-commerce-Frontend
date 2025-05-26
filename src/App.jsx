@@ -19,8 +19,6 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Users from "./pages/Users";
 import AboutUs from "./pages/AboutUs";
 import Favorites from "./pages/Favorites";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -50,7 +48,6 @@ function App() {
         </div>
         <Chatbot />
       </Router>
-      <ToastContainer position="top-right" autoClose={2000} />
     </CartProvider>
     </AuthProvider>
   );
