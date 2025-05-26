@@ -22,7 +22,7 @@ const Cart = () => {
         <>
           <div className="cart-items">
             {cart.map((item) => (
-              <div key={item.id} className="cart-item">
+              <div key={item._id} className="cart-item">
                 <img src={item.image} alt={item.name} className="cart-item-img" />
 
                 <div className="cart-item-details">
@@ -30,17 +30,17 @@ const Cart = () => {
                   <p>${item.price.toFixed(2)} x {item.quantity}</p>
 
                   <div className="cart-item-actions">
-                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="qty-btn">
+                    <button onClick={() => updateQuantity(item._id, item.quantity - 1)} className="qty-btn">
                       <Minus size={12} />
                     </button>
-                    <span className="cart-item-quantity"> </span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="qty-btn">
+                    <span className="cart-item-quantity">{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item._id, item.quantity + 1)} className="qty-btn">
                       <Plus size={12} />
                     </button>
                   </div>
                 </div>
 
-                <button onClick={() => removeFromCart(item.id)} className="cart-remove-btn">
+                <button onClick={() => removeFromCart(item._id)} className="cart-remove-btn">
                   <Trash2 size={24} />
                 </button>
               </div>
@@ -48,7 +48,7 @@ const Cart = () => {
           </div>
 
           <div className="cart-summary">
-            <h3> <span style={{ color: "black" }}>Total: ${totalPrice.toFixed(2)}</span> </h3>
+            <h3><span style={{ color: "black" }}>Total: ${totalPrice.toFixed(2)}</span></h3>
             <button onClick={clearCart} className="clear-cart-btn">Vaciar Carrito</button>
             <Link to="/checkout" className="checkout-btn">Ir a Pagar</Link>
           </div>

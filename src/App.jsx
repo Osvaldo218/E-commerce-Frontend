@@ -6,7 +6,7 @@ import Products from "./pages/Products";
 import SalesReport from "./pages/SalesReport";
 import AdminOrders from "./pages/AdminOrders";
 import Orders from "./pages/Orders";
-import Singin from "./pages/Singin";
+import Singin from "./pages/SingIn";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AdminDashboard from "./pages/AdminDashBoard";
@@ -15,7 +15,10 @@ import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/Cart";
 import { AuthProvider } from "./context/AuthContext";
 import UserProfile from "./pages/userProfile";
+import VerifyEmail from "./pages/VerifyEmail";
 import Users from "./pages/Users";
+import AboutUs from "./pages/AboutUs";
+import Favorites from "./pages/Favorites";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -37,9 +40,12 @@ function App() {
             <Route path="/admin/users" element={<Users />} />
             <Route path="/singin" element={<Singin />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/perfil" element={<UserProfile />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </div>
         <Chatbot />

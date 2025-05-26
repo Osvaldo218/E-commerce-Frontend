@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../context/useAuth";
 import "../styles/Orders.css";
-import { toast } from "react-toastify"; 
+import Swal from "sweetalert2";
 
 const Orders = () => {
   const { user } = useAuth(); // Obtener usuario logueado
@@ -18,15 +18,14 @@ const Orders = () => {
 
         if (!token) {
           setError("🚫 No estás autenticado. Inicia sesión para ver tus pedidos.");
-          toast.error("No estás autenticado. Inicia sesión para continuar.", {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+          Swal.fire({
+            title: "🚫 No autenticado",
+            text: "Inicia sesión para continuar.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false,
+            position: "bottom-end",
+            toast: true,
           });
           setLoading(false);
           return;
@@ -42,21 +41,28 @@ const Orders = () => {
         );
 
         setOrders(validOrders);
-        toast.success("✅ Pedidos cargados correctamente.", {
-          position: "bottom-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
+        Swal.fire({
+          title: "✅ Pedidos cargados",
+          text: "Los pedidos se cargaron correctamente.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "bottom-end",
+          toast: true,
         });
 
       } catch (err) {
         console.error("❌ Error al obtener pedidos:", err);
         setError("❌ Error al cargar pedidos. Intenta nuevamente.");
-        toast.error("❌ No se pudieron cargar los pedidos.");
+        Swal.fire({
+          title: "❌ Error",
+          text: "No se pudieron cargar los pedidos.",
+          icon: "error",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "bottom-end",
+          toast: true,
+        });
       } finally {
         setLoading(false);
       }

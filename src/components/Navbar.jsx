@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { FaUsers, FaBars, FaTimes } from "react-icons/fa";
-import { ShoppingCart, User, Home } from "lucide-react";
+import { ShoppingCart, User, Home, Heart } from "lucide-react";
 import { useLocation } from 'react-router-dom';
 import "../styles/Navbar.css";
 
@@ -47,6 +47,7 @@ const Navbar = (onSearch) => {
         <li><Link to="/orders" onClick={() => setMenuOpen(false)}>📚 Pedidos de Clientes</Link></li>
         <li><Link to="/Perfil" onClick={() => setMenuOpen(false)}><User size={20} /> Mi Cuenta</Link></li>
         <li><Link to="/admin/users" onClick={() => setMenuOpen(false)}><FaUsers size={20} /> Usuarios</Link></li>
+        <li><Link to="/favorites" onClick={() => setMenuOpen(false)}> ♥️ Favoritos</Link></li>
         <li className="cart-icon">
           <Link to="/cart" onClick={() => setMenuOpen(false)}>
             <ShoppingCart size={24} />

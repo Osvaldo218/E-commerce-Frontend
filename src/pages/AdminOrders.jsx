@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 
 const AdminOrders = () => {
@@ -42,20 +42,25 @@ const AdminOrders = () => {
       setOrders(filteredOrders);
 
       // Notificación exitosa
-      toast.success("✅ Pedidos cargados correctamente", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      });
+      Swal.fire({
+          title: "✅ Pedidos cargados",
+          text: "Los pedidos se cargaron correctamente.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+          position: "bottom-end",
+          toast: true,
+        });
     } catch (error) {
       setError(error.message);
-      toast.error("❌ Error al cargar pedidos", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
+      Swal.fire({
+        title: "❌ Error",
+        text: "No se pudieron cargar los pedidos.",
+        icon: "error",
+        timer: 2000,
+        showConfirmButton: false,
+        position: "bottom-end",
+        toast: true,
       });
     } finally {
       setLoading(false);
@@ -72,10 +77,14 @@ const AdminOrders = () => {
 
     if (!token) {
       setError("No autorizado. Inicia sesión.");
-      toast.error("⚠️ No autorizado. Inicia sesión.", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
+      Swal.fire({
+        title: "⚠️ No autorizado",
+        text: "Inicia sesión.",
+        icon: "warning",
+        timer: 3000,
+        showConfirmButton: false,
+        position: "bottom-end",
+        toast: true,
       });
       return;
     }
@@ -100,17 +109,25 @@ const AdminOrders = () => {
       );
 
       // Notificación éxito al actualizar estado
-      toast.success("✅ Estado del pedido actualizado", {
-        position: "bottom-right",
-        autoClose: 2500,
-        theme: "dark",
+      Swal.fire({
+        title: "✅ Estado actualizado",
+        text: "El estado del pedido ha sido actualizado.",
+        icon: "success",
+        timer: 2500,
+        showConfirmButton: false,
+        position: "bottom-end",
+        toast: true,
       });
     } catch (error) {
       setError(error.message);
-      toast.error("❌ Error al actualizar estado del pedido", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
+      Swal.fire({
+        title: "❌ Error",
+        text: "Error al actualizar estado del pedido",
+        icon: "error",
+        timer: 3000,
+        showConfirmButton: false,
+        position: "bottom-end",
+        toast: true,
       });
     }
   };

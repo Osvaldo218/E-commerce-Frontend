@@ -13,6 +13,13 @@
   text-align: center;
 }
 
+.products-title-fav {
+  font-size: 24px;
+  color: white;
+  margin-top: auto;
+  text-align: center;
+}
+
 /* Formulario de producto */
 .product-form {
   display: flex;
@@ -207,6 +214,42 @@
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.product-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.remove-favorite-btn,
+.add-to-cart-btn {
+  flex: 1;
+  margin: 0 4px;
+  padding: 0.4rem 0.6rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.remove-favorite-btn {
+  background-color: #ff4d50;
+  color: white;
+}
+
+.remove-favorite-btn:hover {
+  background-color: #d9363e;
+}
+
+.add-to-cart-btn {
+  background-color: #555;
+  color: white;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #888;
 }
 
 /* 🟢 Diseño Responsivo para móviles */

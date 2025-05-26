@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from "react";
-import { toast } from 'react-toastify';
+import Swal from "sweetalert2";
 
 export const CartContext = createContext();
 
@@ -10,77 +10,81 @@ export const CartProvider = ({ children }) => {
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // Guardar en localStorage solo si hay productos en el carrito
+  // Guardar en localStorage si el carrito tiene productos
   useEffect(() => {
     if (cart.length > 0) {
       localStorage.setItem("cart", JSON.stringify(cart));
     } else {
-      localStorage.removeItem("cart"); // Limpia si está vacío
+      localStorage.removeItem("cart");
     }
   }, [cart]);
 
-  // ✅ Obtener cantidad total de productos en el carrito
+  // ✅ Contador total de productos
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-  // ✅ Agregar producto al carrito (verificando si ya existe)
+  // ✅ Agregar producto al carrito (verifica si ya existe por _id)
   const addToCart = (product) => {
-    const existingProduct = cart.find(item => item._id === product._id);
-  
+    const existingProduct = cart.find((item) => item._id === product._id);
+
     if (existingProduct) {
-      setCart(cart.map(item =>
-        item._id === product._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
+      setCart(
+        cart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
 
-    toast.success(`${product.name} Producto añadido con éxito!`, {
-      position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });  
-};
+    Swal.fire({
+      title: "🛒 Producto agregado",
+      text: `${product.name} se agregó al carrito.`,
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+      position: "bottom-end",
+      toast: true,
+    });
+  };
 
-  // ✅ Eliminar un producto o reducir su cantidad
+  // ✅ Eliminar producto por _id
   const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter(item => item.id !== productId));  
+    setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
 
-    toast.info(`Producto eliminado del carrito`, {
-    position: "bottom-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    }); 
-};
+    Swal.fire({
+      title: "🗑️ Producto eliminado",
+      text: "Se eliminó del carrito.",
+      icon: "info",
+      timer: 1500,
+      showConfirmButton: false,
+      position: "bottom-end",
+      toast: true,
+    });
+  };
 
-
-  // ✅ Vaciar el carrito
+  // ✅ Vaciar carrito
   const clearCart = () => {
     setCart([]);
   };
 
-  // ✅ Modificar cantidad manualmente
+  // ✅ Actualizar cantidad por _id
   const updateQuantity = (productId, quantity) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity: Math.max(1, quantity) } : item
+        item._id === productId
+          ? { ...item, quantity: Math.max(1, quantity) }
+          : item
       )
     );
   };
 
-  // ✅ Calcular el total del carrito
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // ✅ Total del carrito
+  const totalPrice = cart.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 
   return (
     <CartContext.Provider
@@ -99,5 +103,5 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para usar el contexto
+// ✅ Hook personalizado
 export const useCart = () => useContext(CartContext);

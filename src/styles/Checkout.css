@@ -1,21 +1,53 @@
-.checkout-container {
-  max-width: 600px;
+.checkout-form {
+  max-width: 500px;
   margin: auto;
-  text-align: center;
-  padding: 20px;
-  background: white;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .checkout-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #444;
 }
 
-.checkout-subtitle {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
+.instructions {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.bank-details p {
+  margin: 0.4rem 0;
+  font-weight: 500;
+  color: #444;
+}
+
+.file-upload {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.file-upload label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2b7a78;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: #205c5a;
 }

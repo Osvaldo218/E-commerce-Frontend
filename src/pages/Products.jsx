@@ -22,6 +22,24 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  const [favoriteProducts, setFavoriteProducts] = useState(() => {
+  const saved = localStorage.getItem("favorites");
+  return saved ? JSON.parse(saved) : [];
+  });
+
+  const toggleFavorite = (productId) => {
+    let updatedFavorites;
+    if (favoriteProducts.includes(productId)) {
+      updatedFavorites = favoriteProducts.filter(id => id !== productId);
+    } else {
+      updatedFavorites = [...favoriteProducts, productId];
+    }
+    setFavoriteProducts(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
+  const isFavorite = (productId) => favoriteProducts.includes(productId);
+
   const fetchUserRole = async () => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -66,7 +84,7 @@ const Products = () => {
     try {
       if (!editingProduct) return;
 
-      console.log("Producto a guardar:", editingProduct);  // Depuración: ver producto antes de enviar
+      console.log("Producto a guardar:", editingProduct);
 
       const token = localStorage.getItem("token");
       if (!token) {
@@ -171,19 +189,27 @@ const Products = () => {
         <div className="products-grid">
           {filteredProducts.map((product) => (
             <div key={product._id} className="product-card">
-              <img src={product.image || "https://via.placeholder.com/150"} alt={product.name} className="product-image" />
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-price">💲 {parseFloat(product.price).toFixed(2)}</p>
-              <p className="product-stock">📦 Stock: {product.stock}</p>
-              <button onClick={() => addToCart(product)}>🛒 Agregar al Carrito</button>
-
-              {userRole === "admin" && (
-                <div class="button-container">
-                  <button className="edit-btn" onClick={() => startEditing(product)}>✏️ Editar</button>
-                  <button className="delete-btn" onClick={() => confirmDelete(product)}>🗑️ Eliminar</button>
-                </div>
-              )}
+            <div
+              className="favorite-icon"
+              onClick={() => toggleFavorite(product._id)}
+              style={{ position: "absolute", top: "10px", right: "10px", cursor: "pointer" }}
+            >
+              {isFavorite(product._id) ? "❤️" : "🤍"}
             </div>
+
+            <img src={product.image || "https://via.placeholder.com/150"} alt={product.name} className="product-image" />
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">💲 {parseFloat(product.price).toFixed(2)}</p>
+            <p className="product-stock">📦 Stock: {product.stock}</p>
+            <button onClick={() => addToCart(product)}>🛒 Agregar al Carrito</button>
+
+            {userRole === "admin" && (
+              <div className="button-container">
+                <button className="edit-btn" onClick={() => startEditing(product)}>✏️ Editar</button>
+                <button className="delete-btn" onClick={() => confirmDelete(product)}>🗑️ Eliminar</button>
+              </div>
+            )}
+          </div>
           ))}
         </div>
       )}
@@ -237,7 +263,6 @@ const Products = () => {
               onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })} 
             />
 
-            {/* Ahora se pide la URL de la imagen en lugar de seleccionar un archivo */}
             <label>URL de la Imagen:</label>
             <input 
               type="text" 
@@ -245,7 +270,6 @@ const Products = () => {
               onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} 
             />
 
-            {/* Botones de guardar y cancelar */}
             <button className="save-btn" onClick={handleAddProduct}>Guardar</button>
             <button className="close-btn" onClick={() => setShowAddModal(false)}>Cancelar</button>
           </div>
