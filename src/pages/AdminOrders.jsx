@@ -12,8 +12,17 @@ const AdminOrders = () => {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        setError("No autorizado. Inicia sesión.");
+        setError("⚠️ No autorizado. Inicia sesión.");
         setLoading(false);
+        Swal.fire({
+        title: "⚠️ No autorizado",
+        text: "Inicia sesión.",
+        icon: "warning",
+        timer: 3000,
+        showConfirmButton: false,
+        position: "bottom-end",
+        toast: true,
+      });
         return;
       }
 

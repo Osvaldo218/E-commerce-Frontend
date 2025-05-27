@@ -25,7 +25,7 @@ const Login = () => {
     try {
       const { data } = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/login", { email, password });
        localStorage.setItem("token", data.token);
-       navigate("/dashboard");
+       navigate("/admin/products");
      } catch (error) {
        setError(<span style={{ color: "black" }}>❌ Error en login. Verifica tu email y contraseña.</span>);
      } finally {

@@ -19,6 +19,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Users from "./pages/Users";
 import AboutUs from "./pages/AboutUs";
 import Favorites from "./pages/Favorites";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/perfil" element={<UserProfile />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
           </Routes>
         </div>
         <Chatbot />
