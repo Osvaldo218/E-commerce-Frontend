@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import { useCart } from "../context/CartContext";
 import "../styles/Checkout.css";
 
@@ -9,24 +9,34 @@ const Checkout = () => {
   const { cart, totalPrice } = useCart();
   const [file, setFile] = useState(null);
 
+  const showToast = (icon, title) => {
+    Swal.fire({
+      icon,
+      title,
+      toast: true,
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!file) {
-      toast.error("❌ Debes adjuntar el comprobante de transferencia", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
-      });
+      showToast("error", "❌ Debes adjuntar el comprobante de transferencia");
       return;
     }
 
     if (!cart || cart.length === 0 || !totalPrice || totalPrice <= 0) {
-      toast.error("❌ Carrito vacío o monto inválido", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
-      });
+      showToast("error", "❌ Carrito vacío o monto inválido");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      showToast("error", "⚠️ No estás autenticado. Inicia sesión.");
       return;
     }
 
@@ -41,8 +51,6 @@ const Checkout = () => {
 
     formData.append("items", JSON.stringify(orderItems));
 
-    const token = localStorage.getItem("token");
-
     try {
       const response = await fetch(
         "https://ecommerce-backend-eohg.onrender.com/api/orders/transfer",
@@ -55,31 +63,20 @@ const Checkout = () => {
         }
       );
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type");
+      const isJson = contentType && contentType.includes("application/json");
+      const data = isJson ? await response.json() : null;
 
       if (!response.ok) {
-        toast.error(data.message || "❌ Error al registrar la orden", {
-          position: "bottom-right",
-          autoClose: 3000,
-          theme: "dark",
-        });
+        showToast("error", "❌ Error al registrar la orden");
         return;
       }
 
-      toast.success("✅ Orden registrada. Esperando confirmación bancaria.", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
-      });
-
+      showToast("success", "✅ Orden registrada. Esperando confirmación bancaria.");
       navigate("/orders");
     } catch (error) {
       console.error("❌ Error al enviar la orden:", error);
-      toast.error("❌ Error al procesar la orden", {
-        position: "bottom-right",
-        autoClose: 3000,
-        theme: "dark",
-      });
+      showToast("error", "❌ Error al procesar la orden");
     }
   };
 
@@ -104,7 +101,6 @@ const Checkout = () => {
           type="file"
           accept="image/*,application/pdf"
           onChange={(e) => setFile(e.target.files[0])}
-          required
         />
       </div>
 

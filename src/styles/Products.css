@@ -265,6 +265,13 @@
     position: relative;
   }
 
+  .products-title-fav {
+    font-size: 20px;
+    color: white;
+    margin-top:740%;
+    position: relative;
+  }
+
   .products-grid {
       flex-direction: column; /* Poner los productos en una columna */
       align-items: center;
