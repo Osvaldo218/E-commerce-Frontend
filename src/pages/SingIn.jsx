@@ -16,7 +16,7 @@ const Singin = () => {
     try {
       await axios.post("https://ecommerce-backend-eohg.onrender.com/api/auth/register", { name, email, password });
       setMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-      setTimeout(() => navigate("/verify-email"), 1000);
+      setTimeout(() => navigate("/login"), 1000);
     } catch (error) {
       setMessage("❌ Error al registrar usuario. Intenta de nuevo.");
     }
