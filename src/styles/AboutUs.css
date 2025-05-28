@@ -8,7 +8,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   line-height: 1.6;
-  margin-top: 50%;
 }
 
 .about-title {
@@ -37,7 +36,7 @@
   font-weight: 700;
   color: #2c3e50;
   text-align: center;
-  margin-top: 20%;
+  margin-top: 40%;
 }
 
 .about-text {
