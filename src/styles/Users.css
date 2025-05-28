@@ -96,27 +96,28 @@
 /* Diseño Responsive */
 @media (max-width: 768px) {
   .users-container {
-    width: auto;
-      padding: 10px;
+    width: 100%;
+    max-width: 95%; /* Limita el ancho */
+    padding: 10px;
+    margin: 0 auto; /* Centrado horizontal */
+    box-sizing: border-box;
   }
 
-  /* Reducir tamaño de fuente y padding */
   th, td {
-      font-size: 12px;
-      padding: 6px;
+    font-size: 12px;
+    padding: 6px;
   }
 
   table {
-      min-width: 100%; /* Se asegura que la tabla no se corte */
-      font-size: 12px; /* Reduce el tamaño del texto en móviles */
+    min-width: 100%;
+    font-size: 12px;
   }
 
-  /* Hacer que los botones no se amontonen */
   .action-btn {
-      font-size: 10px;
-      padding: 5px;
-      width: 80px;
-      text-align: center;
+    font-size: 10px;
+    padding: 5px;
+    width: 80px;
+    text-align: center;
   }
 
   .edit-btn {
@@ -125,11 +126,10 @@
   }
 
   .delete-btn {
-      margin-left: 22%;
+    margin-left: 22%;
   }
 }
-  
-  /* Modal */
+
 .modal {
     position: fixed;
     top: 0;
