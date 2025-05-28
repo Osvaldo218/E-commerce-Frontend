@@ -62,3 +62,12 @@
     color: green;
   }
   
+@media (max-width: 768px) {
+  .signup-container {
+    width: 100%;
+    max-width: 95%;
+    padding: 10px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+}

@@ -26,10 +26,12 @@
 
 @media (max-width: 768px) {
 .about-container {
-  max-width: 100%;
-  margin: auto;
-  margin-top: 35%;
-}
+  width: 100%;
+  max-width: 95%;
+  padding: 10px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  }
 
 .about-title {
   font-size: 2rem;
