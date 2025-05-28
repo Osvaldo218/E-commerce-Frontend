@@ -3,7 +3,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
   border: none;
   border-radius: 50%;
@@ -29,7 +29,7 @@
   bottom: 80px;
   right: 20px;
   width: 350px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   border-radius: 15px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -40,7 +40,7 @@
 
 /* Encabezado del chatbot */
 .chatbot-header {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
   padding: 8px;
   display: flex;
@@ -88,7 +88,7 @@
 /* Mensaje del usuario */
 .chatbot-message.user {
   align-self: flex-end;
-  background: linear-gradient(135deg, #764ba2, #667eea);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -133,7 +133,7 @@
 
 /* Botón para enviar mensaje */
 .chatbot-input button {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -146,7 +146,7 @@
 }
 
 .chatbot-input button:hover {
-  background: linear-gradient(135deg, #764ba2, #667eea);
+  background: linear-gradient(135deg, #2a5298, #1e3c72);
   transform: scale(1.1);
 }
 

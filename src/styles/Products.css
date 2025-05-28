@@ -268,22 +268,22 @@
   .products-title-fav {
     font-size: 20px;
     color: white;
-    margin-top:740%;
+    margin-top:600%;
     position: relative;
   }
 
   .products-grid {
-      flex-direction: column; /* Poner los productos en una columna */
+      flex-direction: column;
       align-items: center;
   }
 
   .product-card {
-      width: 65%; /* Hacer las tarjetas más pequeñas */
+      width: 65%;
       padding: 10px;
   }
 
   .product-image {
-      max-height: 120px; /* Reducir el tamaño de la imagen */
+      max-height: 120px;
   }
 
   .product-name {

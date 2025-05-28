@@ -27,6 +27,7 @@
 @media (max-width: 768px) {
 .about-container {
   max-width: 100%;
+  margin: auto;
 }
 
 .about-title {
