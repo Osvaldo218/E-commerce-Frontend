@@ -97,9 +97,9 @@
 @media (max-width: 768px) {
   .users-container {
     width: 100%;
-    max-width: 95%; /* Limita el ancho */
+    max-width: 80%;
     padding: 10px;
-    margin: 0 auto; /* Centrado horizontal */
+    margin: 0 auto;
     box-sizing: border-box;
   }
 
