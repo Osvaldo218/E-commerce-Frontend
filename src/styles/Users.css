@@ -20,7 +20,7 @@
   
   /* Tabla */
   .table-container {
-    max-height: 400px; /* Ajusta la altura a tu gusto */
+    max-height: 400px;
     overflow-y: auto;
   }
   
