@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
-import "../styles/sales.css";
+import "../styles/Sales.css";
 import { useAuth } from "../context/useAuth";
 import {
   Chart as ChartJS,
