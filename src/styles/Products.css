@@ -14,10 +14,9 @@
 }
 
 .products-title-fav {
-  font-size: 20px;
+  font-size: 24px;
   color: white;
-  margin-top: 30px;
-  position: relative;
+  margin-top: auto;
   text-align: center;
 }
 
@@ -270,10 +269,9 @@
   .products-title-fav {
     font-size: 20px;
     color: white;
-    margin-top: 30px;
+    margin-top: 120%;
     position: relative;
-    text-align: center;
-}
+  }
 
   .products-grid {
       flex-direction: column;
