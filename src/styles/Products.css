@@ -279,14 +279,6 @@
     padding: 12px 0;
 }
 
-.product-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-  margin: 70px auto 20px;
-}
-
   .products-grid {
       flex-direction: column;
       align-items: center;
