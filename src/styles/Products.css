@@ -237,6 +237,7 @@
 .remove-favorite-btn {
   background-color: #ff4d50;
   color: white;
+  margin-bottom: 5%;
 }
 
 .remove-favorite-btn:hover {

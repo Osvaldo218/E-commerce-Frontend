@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Evita recargar la página
+    e.preventDefault();
     if (!email || !password) {
       setError("❌ Todos los campos son obligatorios.");
       return;

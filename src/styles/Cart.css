@@ -143,6 +143,7 @@
   cursor: pointer;
   color: #ff3d3d;
   transition: color 0.3s, transform 0.2s;
+  margin-top: auto;
 }
 
 .cart-remove-btn:hover {
@@ -241,6 +242,7 @@
 
   .cart-remove-btn {
     align-self: flex-end;
+    width: 112px;
   }
 
   .cart-summary {

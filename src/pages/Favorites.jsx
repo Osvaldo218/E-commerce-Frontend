@@ -80,14 +80,14 @@ const Favorites = () => {
                 className="remove-favorite-btn"
                 onClick={() => handleRemoveFavorite(product._id)}
               >
-                🗑️
+                🗑️ Eliminar de Favoritos
               </button>
 
               <button
                 className="add-to-cart-btn"
                 onClick={() => addToCart(product)}
               >
-                🛒
+                🛒 Agregar al Carrito
               </button>
             </div>
           ))}
