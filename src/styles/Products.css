@@ -268,10 +268,12 @@
   }
 
   .products-title-fav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 10px 0;
     font-size: 20px;
     color: white;
-    margin-top: 30px;
-    position: relative;
     text-align: center;
 }
 
