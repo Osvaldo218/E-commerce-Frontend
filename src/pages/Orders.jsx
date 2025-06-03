@@ -79,7 +79,7 @@ const Orders = () => {
       <h2>📦 Mis Pedidos</h2>
 
       {orders.length === 0 ? (
-        <p>No tienes pedidos aún.</p>
+        <p>📭 No tienes pedidos aún.</p>
       ) : (
         <div className="orders-list">
           {orders.map((order) => (

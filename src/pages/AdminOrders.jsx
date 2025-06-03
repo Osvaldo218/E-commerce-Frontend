@@ -143,7 +143,7 @@ const AdminOrders = () => {
 
   if (loading) return <p>Cargando pedidos...</p>;
   if (error) return <p className="error">{error}</p>;
-  if (orders.length === 0) return <p>No hay pedidos disponibles.</p>;
+  if (orders.length === 0) return <p>📭 No hay pedidos disponibles.</p>;
 
   return (
     <>
