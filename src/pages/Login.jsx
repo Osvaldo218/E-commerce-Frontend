@@ -69,7 +69,7 @@ const Login = () => {
         </form>
 
         <div className="login-links">
-          <button onClick={() => navigate("/about-us")}>¿Quienes somos?</button> |  
+          <button onClick={() => navigate("/about-us")}>¿Quiénes somos?</button> |  
           <button onClick={() => navigate("/singin")}>Regístrate</button>
         </div>
       </div>
