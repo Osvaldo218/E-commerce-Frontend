@@ -73,7 +73,7 @@ const Favorites = () => {
                 className="product-image"
               />
               <h3 className="product-name">{product.name}</h3>
-              <p className="product-price">💲 {parseFloat(product.price).toFixed(2)}</p>
+              <p className="product-price">${parseFloat(product.price).toFixed(2)}</p>
               <p className="product-stock">📦 Stock: {product.stock}</p>
 
               <button

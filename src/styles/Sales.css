@@ -16,9 +16,9 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #2e7d32; /* verde oscuro */
+  color: #2a5298;
   text-align: center;
-  text-shadow: 1px 1px 3px rgba(46, 125, 50, 0.3);
+  text-shadow: 1px 1px 3px rgba(21, 101, 192, 0.3);
 }
 
 /* Área de filtros */
@@ -32,7 +32,7 @@
 
 .filters input[type="date"] {
   padding: 0.6rem 1rem;
-  border: 1.8px solid #c8e6c9;
+  border: 1.8px solid #bbdefb;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
@@ -41,25 +41,25 @@
 
 .filters input[type="date"]:focus {
   outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+  border-color: #2a5298;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.4);
 }
 
 .filters button {
   padding: 0.6rem 1.5rem;
-  background-color: #4caf50;
+  background-color: #2a5298;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 12px rgba(25, 118, 210, 0.4);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .filters button:hover {
-  background-color: #388e3c;
+  background-color: #2a5298;
   transform: translateY(-2px);
 }
 
@@ -91,14 +91,14 @@
 .sales-stats h3 {
   font-weight: 700;
   margin-bottom: 0.6rem;
-  color: #388e3c;
+  color: #1e3c72;
   font-size: 1.2rem;
 }
 
 .sales-stats p {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #2e7d32;
+  color: #2a5298;
 }
 
 /* Contenedor del gráfico */
@@ -118,7 +118,7 @@
 .sales-list h3 {
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #2e7d32;
+  color: #2a5298;
   text-align: center;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .sales-list th {
-  background-color: #4caf50;
+  background-color: #2a5298;
   color: white;
   font-weight: 700;
   text-transform: uppercase;
@@ -148,7 +148,7 @@
 }
 
 .sales-list tbody tr:hover {
-  background-color: #f1f8e9;
+  background-color: #e3f2fd;
   transition: background-color 0.3s ease;
 }
 

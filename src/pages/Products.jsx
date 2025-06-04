@@ -170,7 +170,7 @@ const Products = () => {
       <input
         type="text"
         className="search-bar"
-        placeholder="🔍 Buscar producto..."
+        placeholder="Buscar producto..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -199,14 +199,14 @@ const Products = () => {
 
             <img src={product.image || "https://via.placeholder.com/150"} alt={product.name} className="product-image" />
             <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">💲 {parseFloat(product.price).toFixed(2)}</p>
+            <p className="product-price">${parseFloat(product.price).toFixed(2)}</p>
             <p className="product-stock">📦 Stock: {product.stock}</p>
             <button onClick={() => addToCart(product)}>🛒 Agregar al Carrito</button>
 
             {userRole === "admin" && (
               <div className="button-container">
-                <button className="edit-btn" onClick={() => startEditing(product)}>✏️ Editar</button>
-                <button className="delete-btn" onClick={() => confirmDelete(product)}>🗑️ Eliminar</button>
+                <button className="edit-btn" onClick={() => startEditing(product)}>✏️</button>
+                <button className="delete-btn" onClick={() => confirmDelete(product)}>🗑️</button>
               </div>
             )}
           </div>

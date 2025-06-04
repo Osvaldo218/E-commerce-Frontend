@@ -40,7 +40,7 @@
   }
   
   .signup-btn {
-    background-color: #2a5298;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
   }
   
@@ -50,7 +50,7 @@
   }
   
   .signup-btn:hover {
-    background-color: #1e3c72;
+    background: linear-gradient(135deg, #2a5298, #1E90FF);
   }
   
   .back-btn:hover {

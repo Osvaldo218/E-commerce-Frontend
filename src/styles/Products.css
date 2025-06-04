@@ -37,7 +37,7 @@
 
 .product-form button {
   padding: 10px;
-  background-color: #27ae60;
+  background-color: #1e3c72;
   color: white;
   border: none;
   border-radius: 5px;
@@ -46,7 +46,7 @@
 }
 
 .product-form button:hover {
-  background-color: #219150;
+  background-color: #1E90FF;
 }
 
 /* Diseño de la lista de productos */
@@ -90,12 +90,12 @@
 .product-price {
   font-size: 16px;
   font-weight: bold;
-  color: #27ae60;
+  color: #1e3c72;
 }
 
 .product-stock {
   font-size: 14px;
-  color: #555;
+  color: #333;
 }
 
 /* 🟢 Contenedor de botones dentro de cada tarjeta */
@@ -128,7 +128,7 @@
 }
 
 .edit-btn {
-  background-color: #4caf50;
+  background-color: #2a5298;
   color: white;
 }
 
@@ -144,7 +144,7 @@
 
 /* Efectos hover */
 .edit-btn:hover {
-  background-color: #388e3c;
+  background-color: #1e3c72;
 }
 
 .delete-btn:hover {
@@ -168,14 +168,14 @@
 
 /* Botón de agregar producto */
 .add-product-btn {
-  background-color: #3498db;
+  background-color: #1e3c72;
   color: white;
   margin-bottom: 15px;
   margin-left: 4%;
 }
 
 .add-product-btn:hover {
-  background-color: #2980b9;
+  background-color: #2a5298;
 }
 
 /* Modal */
@@ -250,7 +250,7 @@
 }
 
 .add-to-cart-btn:hover {
-  background-color: #888;
+  background-color: #777;
 }
 
 /* 🟢 Diseño Responsivo para móviles */

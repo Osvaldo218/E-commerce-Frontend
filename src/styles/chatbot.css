@@ -21,6 +21,7 @@
 .chatbot-toggle:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #2a5298, #1E90FF);
 }
 
 /* Contenedor del chatbot */
@@ -146,7 +147,7 @@
 }
 
 .chatbot-input button:hover {
-  background: linear-gradient(135deg, #2a5298, #1e3c72);
+  background: linear-gradient(135deg, #2a5298, #1E90FF);
   transform: scale(1.1);
 }
 

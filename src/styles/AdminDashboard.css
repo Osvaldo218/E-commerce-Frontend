@@ -33,7 +33,7 @@
 
 /* Tarjetas de estadísticas */
 .stat-card {
-  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -87,7 +87,7 @@
 
 .dashboard-button {
   padding: 12px 25px;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
   color: white;
   border: none;
   border-radius: 8px;
@@ -99,7 +99,7 @@
 }
 
 .dashboard-button:hover {
-  background: linear-gradient(135deg, #fad0c4, #ff9a9e);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
@@ -107,13 +107,14 @@
 /* Adaptabilidad */
 @media (max-width: 768px) {
   .stats-container {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .chart-container {
-      width: 90%;
+    width: 90%;
   }
+
   .dashboard-header {
     font-size: 20px;
     font-weight: bold;

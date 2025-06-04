@@ -70,7 +70,7 @@ html, body {
 }
 
 .login-btn:hover {
-    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    background: linear-gradient(135deg, #2a5298, #1E90FF);
 }
 
 /* Enlace de registro y recuperación */
