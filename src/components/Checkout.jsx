@@ -42,16 +42,18 @@ const Checkout = () => {
 
     const formData = new FormData();
     formData.append("proof", file);
-    formData.append("totalAmount", totalPrice);
-
-    const orderItems = cart.map((item) => ({
-      productId: item._id,
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity || 1,
-    }));
-
-    formData.append("items", JSON.stringify(orderItems));
+    formData.append("totalAmount", totalPrice.toString()); // importante como string
+    formData.append(
+      "items",
+      JSON.stringify(
+        cart.map((item) => ({
+          productId: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity || 1,
+        }))
+      )
+    );
 
     try {
       const response = await fetch(
@@ -59,18 +61,17 @@ const Checkout = () => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // SIN Content-Type
           },
           body: formData,
         }
       );
 
-      const contentType = response.headers.get("content-type");
-      const isJson = contentType && contentType.includes("application/json");
-      const data = isJson ? await response.json() : null;
+      const data = await response.json();
 
       if (!response.ok) {
-        showToast("error", "❌ Error al registrar la orden");
+        console.error("❌ Respuesta inválida:", data);
+        showToast("error", data.message || "❌ Error al registrar la orden");
         return;
       }
 
@@ -85,7 +86,6 @@ const Checkout = () => {
   return (
     <form onSubmit={handleSubmit} className="checkout-form">
       <h2 className="checkout-title">🏦 Pago por Transferencia Bancaria</h2>
-
       <p className="instructions">
         Realiza la transferencia a la cuenta bancaria mostrada y sube el comprobante aquí.
       </p>
@@ -103,6 +103,7 @@ const Checkout = () => {
           type="file"
           accept="image/*,application/pdf"
           onChange={(e) => setFile(e.target.files[0])}
+          required
         />
       </div>
 

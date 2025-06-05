@@ -15,7 +15,7 @@
 }
 
 .unauthorized-container button {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
   padding: 10px 20px;
   border: none;
