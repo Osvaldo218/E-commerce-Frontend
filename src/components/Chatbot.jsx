@@ -6,49 +6,65 @@ import { MessageCircle } from "lucide-react";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ sender: "bot", text: "¡Hola! ¿En qué puedo ayudarte?" }]);
+  const [messages, setMessages] = useState([
+    { sender: "bot", text: "¡Hola! ¿En qué puedo ayudarte?" }
+  ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Manejar envío de mensajes
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    // Agregar mensaje del usuario al chat
     const userMessage = { sender: "user", text: input };
-    setMessages([...messages, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
 
     try {
-      const response = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/chatbot", { message: input });
+      const response = await axios.post("https://ecommerce-backend-eohg.onrender.com/api/chatbot", {
+        message: input
+      });
+
       const botMessage = { sender: "bot", text: response.data.reply };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: "Hubo un error, intenta más tarde." }]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Hubo un error, intenta más tarde." }
+      ]);
     }
 
-    setInput("");
+    setIsLoading(false);
   };
 
   return (
     <>
-      {/* Botón flotante */}
       <button className="chatbot-toggle" onClick={() => setIsOpen(!isOpen)}>
         <MessageCircle size={24} />
       </button>
 
-      {/* Chatbot */}
       {isOpen && (
         <div className="chatbot-container">
           <div className="chatbot-header">
             <h3>PointBot</h3>
             <button onClick={() => setIsOpen(false)}>✖</button>
           </div>
+
           <div className="chatbot-messages">
             {messages.map((msg, index) => (
               <div key={index} className={`chatbot-message ${msg.sender}`}>
                 {msg.text}
               </div>
             ))}
+            {isLoading && (
+              <div className="chatbot-message bot typing">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
+              </div>
+            )}
           </div>
+
           <div className="chatbot-input">
             <input
               type="text"

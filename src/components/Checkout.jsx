@@ -22,66 +22,65 @@ const Checkout = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!file) {
-      showToast("error", "❌ Debes adjuntar el comprobante de transferencia");
+  if (!file) {
+    showToast("error", "❌ Debes adjuntar el comprobante de transferencia");
+    return;
+  }
+
+  if (!cart || cart.length === 0 || !totalPrice || totalPrice <= 0) {
+    showToast("error", "❌ Carrito vacío o monto inválido");
+    return;
+  }
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    showToast("error", "⚠️ No estás autenticado. Inicia sesión.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("proof", file);
+  formData.append("totalAmount", totalPrice.toString());
+
+  cart.forEach((item, index) => {
+    formData.append(`items[${index}][productId]`, item._id);
+    formData.append(`items[${index}][name]`, item.name);
+    formData.append(`items[${index}][price]`, item.price);
+    formData.append(`items[${index}][quantity]`, item.quantity || 1);
+  });
+
+  console.log("📦 ENVIANDO A BACKEND:");
+  for (let pair of formData.entries()) {
+    console.log(`${pair[0]}:`, pair[1]);
+  }
+
+  try {
+    const response = await fetch("https://ecommerce-backend-eohg.onrender.com/api/orders/transfer", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // ❗ NO pongas 'Content-Type' con FormData
+      },
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("❌ Respuesta inválida:", data);
+      showToast("error", data.message || "❌ Error al registrar la orden");
       return;
     }
 
-    if (!cart || cart.length === 0 || !totalPrice || totalPrice <= 0) {
-      showToast("error", "❌ Carrito vacío o monto inválido");
-      return;
-    }
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      showToast("error", "⚠️ No estás autenticado. Inicia sesión.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("proof", file);
-    formData.append("totalAmount", totalPrice.toString()); // importante como string
-    formData.append(
-      "items",
-      JSON.stringify(
-        cart.map((item) => ({
-          productId: item._id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity || 1,
-        }))
-      )
-    );
-
-    try {
-      const response = await fetch(
-        "https://ecommerce-backend-eohg.onrender.com/api/orders/transfer",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`, // SIN Content-Type
-          },
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error("❌ Respuesta inválida:", data);
-        showToast("error", data.message || "❌ Error al registrar la orden");
-        return;
-      }
-
-      showToast("success", "✅ Orden registrada. Esperando confirmación bancaria.");
-      navigate("/orders");
-    } catch (error) {
-      console.error("❌ Error al enviar la orden:", error);
-      showToast("error", "❌ Error al procesar la orden");
-    }
-  };
+    showToast("success", "✅ Orden registrada. Esperando confirmación bancaria.");
+    navigate("/orders");
+  } catch (error) {
+    console.error("❌ Error al enviar la orden:", error);
+    showToast("error", "❌ Error al procesar la orden");
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="checkout-form">
@@ -98,10 +97,11 @@ const Checkout = () => {
       </div>
 
       <div className="file-upload">
-        <label>Comprobante de pago (imagen o PDF):</label>
+        <label>Comprobante de pago (imagen JPG/PNG o PDF):</label>
         <input
           type="file"
-          accept="image/*,application/pdf"
+          name="proof"
+          accept="image/jpeg,image/png,application/pdf"
           onChange={(e) => setFile(e.target.files[0])}
           required
         />

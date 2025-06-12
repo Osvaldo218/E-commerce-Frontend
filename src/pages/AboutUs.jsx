@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import "../styles/AboutUs.css";
 
 const AboutUs = () => {
+  const navigate = useNavigate();
+
+  const handleGoToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="about-container">
       <h2 className="about-title">¿Quiénes Somos?</h2>
@@ -22,6 +30,10 @@ const AboutUs = () => {
         Somos más que una tienda en línea: somos una comunidad impulsada por la tecnología y la
         pasión por el comercio digital.
       </p>
+      <button className="back-to-login-button" onClick={handleGoToLogin}>
+        <FaArrowLeft style={{ marginRight: "8px" }} />
+        
+      </button>
     </div>
   );
 };

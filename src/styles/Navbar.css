@@ -23,7 +23,7 @@
 }
 
 .menu-toggle {
-  display: none; /* Oculto en pantallas grandes */
+  display: none;
   cursor: pointer;
 }
 
@@ -95,7 +95,7 @@
     top: 15px;
     left: 0;
     width: 100%;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #2a5298, #1E90FF);
     padding: 10px 0;
     text-align: center;
   }

@@ -8,6 +8,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   line-height: 1.6;
+  margin-top: 100px;
 }
 
 .about-title {
@@ -22,6 +23,26 @@
   font-size: 1.1rem;
   margin-bottom: 16px;
   text-align: justify;
+}
+
+.back-to-login-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #2a5298, #1E90FF);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.back-to-login-button:hover {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
 }
 
 @media (max-width: 768px) {
