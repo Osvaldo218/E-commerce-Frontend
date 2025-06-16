@@ -40,17 +40,6 @@ const Orders = () => {
           Array.isArray(order.items) && order.items.length > 0 && typeof order.total === "number"
         );
 
-        setOrders(validOrders);
-        Swal.fire({
-          title: "✅ Pedidos cargados",
-          text: "Los pedidos se cargaron correctamente.",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-          position: "bottom-end",
-          toast: true,
-        });
-
       } catch (err) {
         console.error("❌ Error al obtener pedidos:", err);
         setError("❌ Error al cargar pedidos. Intenta nuevamente.");

@@ -50,16 +50,6 @@ const AdminOrders = () => {
 
       setOrders(filteredOrders);
 
-      // Notificación exitosa
-      Swal.fire({
-          title: "✅ Pedidos cargados",
-          text: "Los pedidos se cargaron correctamente.",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-          position: "bottom-end",
-          toast: true,
-        });
     } catch (error) {
       setError(error.message);
       Swal.fire({
