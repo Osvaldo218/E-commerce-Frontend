@@ -15,14 +15,14 @@ const AdminOrders = () => {
         setError("⚠️ No autorizado. Inicia sesión.");
         setLoading(false);
         Swal.fire({
-        title: "⚠️ No autorizado",
-        text: "Inicia sesión.",
-        icon: "warning",
-        timer: 3000,
-        showConfirmButton: false,
-        position: "bottom-end",
-        toast: true,
-      });
+          title: "⚠️ No autorizado",
+          text: "Inicia sesión.",
+          icon: "warning",
+          timer: 3000,
+          showConfirmButton: false,
+          position: "bottom-end",
+          toast: true,
+        });
         return;
       }
 
@@ -44,12 +44,11 @@ const AdminOrders = () => {
       const filteredOrders = data.filter(
         (order) =>
           order._id &&
-          typeof order.totalPrice === "number" &&
-          order.orderStatus !== undefined
+          typeof order.totalAmount === "number" &&
+          order.status !== undefined
       );
 
       setOrders(filteredOrders);
-
     } catch (error) {
       setError(error.message);
       Swal.fire({
@@ -71,31 +70,34 @@ const AdminOrders = () => {
   }, []);
 
   const updateOrderStatus = async (orderId, status) => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    if (!token) {
-      setError("No autorizado. Inicia sesión.");
-      Swal.fire({
-        title: "⚠️ No autorizado",
-        text: "Inicia sesión.",
-        icon: "warning",
-        timer: 3000,
-        showConfirmButton: false,
-        position: "bottom-end",
-        toast: true,
-      });
-      return;
-    }
+      if (!token) {
+        setError("No autorizado. Inicia sesión.");
+        Swal.fire({
+          title: "⚠️ No autorizado",
+          text: "Inicia sesión.",
+          icon: "warning",
+          timer: 3000,
+          showConfirmButton: false,
+          position: "bottom-end",
+          toast: true,
+        });
+        return;
+      }
 
-      const response = await fetch(`https://ecommerce-backend-eohg.onrender.com/api/orders/${orderId}/status`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ orderStatus: status }),
-      });
+      const response = await fetch(
+        `https://ecommerce-backend-eohg.onrender.com/api/orders/${orderId}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ orderStatus: status }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al actualizar el estado del pedido");
@@ -107,7 +109,6 @@ const AdminOrders = () => {
         )
       );
 
-      // Notificación éxito al actualizar estado
       Swal.fire({
         title: "✅ Estado actualizado",
         text: "El estado del pedido ha sido actualizado.",
@@ -142,12 +143,22 @@ const AdminOrders = () => {
         <div key={order._id} className="order-card">
           <p>🆔 Orden ID: {order._id}</p>
           <p>👤 Cliente: {order.user?.name || "Desconocido"}</p>
-          <p>💰 Total: ${typeof order.totalPrice === "number" ? order.totalPrice.toFixed(2) : "0.00"}</p>
-          <p>📅 Fecha: {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "Sin fecha"}</p>
-          <p>🚀 Estado: {order.orderStatus || "Desconocido"}</p>
+          <p>
+            💰 Total: $
+            {typeof order.totalAmount === "number"
+              ? order.totalAmount.toFixed(2)
+              : "0.00"}
+          </p>
+          <p>
+            📅 Fecha:{" "}
+            {order.createdAt
+              ? new Date(order.createdAt).toLocaleDateString()
+              : "Sin fecha"}
+          </p>
+          <p>🚀 Estado: {order.orderStatus || order.status || "Desconocido"}</p>
 
           <select
-            value={order.orderStatus || "Pendiente"}
+            value={order.orderStatus || order.status || "Pendiente"}
             onChange={(e) => updateOrderStatus(order._id, e.target.value)}
           >
             <option value="Pendiente">Pendiente</option>
