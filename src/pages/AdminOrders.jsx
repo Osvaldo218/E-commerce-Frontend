@@ -134,11 +134,11 @@ const AdminOrders = () => {
 
   if (loading) return <p>Cargando pedidos...</p>;
   if (error) return <p className="error">{error}</p>;
-  if (orders.length === 0) return <p>📭 No hay pedidos disponibles.</p>;
+  if (orders.length === 0) return <p>📭 No tienes pedidos aún.</p>;
 
   return (
     <>
-      <h2>📚 Pedidos de Clientes</h2>
+      <h2>📦 Mis Pedidos</h2>
       {orders.map((order) => (
         <div key={order._id} className="order-card">
           <p>🆔 Orden ID: {order._id}</p>

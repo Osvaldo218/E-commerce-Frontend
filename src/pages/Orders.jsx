@@ -65,10 +65,10 @@ const Orders = () => {
 
   return (
     <div className="orders-container">
-      <h2>📦 Mis Pedidos</h2>
+      <h2>📚 Pedidos de Clientes</h2>
 
       {orders.length === 0 ? (
-        <p>📭 No tienes pedidos aún.</p>
+        <p>📭 No hay pedidos disponibles.</p>
       ) : (
         <div className="orders-list">
           {orders.map((order) => (
