@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../context/useAuth";
@@ -12,6 +11,7 @@ const Orders = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    console.log("👤 Usuario cargado: ", user);
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -31,15 +31,22 @@ const Orders = () => {
           return;
         }
 
-        const { data } = await axios.get("https://ecommerce-backend-eohg.onrender.com/api/orders", {
+        let url = "https://ecommerce-backend-eohg.onrender.com/api/orders";
+
+        if (user?.role !== "admin") {
+          url = "https://ecommerce-backend-eohg.onrender.com/api/orders/user";
+        }
+
+        const { data } = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // Filtrar pedidos reales que tengan al menos un producto
+        // Filtrar pedidos válidos
         const validOrders = data.filter(order =>
-          Array.isArray(order.items) && order.items.length > 0 && typeof order.total === "number"
+          Array.isArray(order.items) && order.items.length > 0 && typeof order.totalAmount === "number"
         );
 
+        setOrders(validOrders);
       } catch (err) {
         console.error("❌ Error al obtener pedidos:", err);
         setError("❌ Error al cargar pedidos. Intenta nuevamente.");
@@ -58,7 +65,7 @@ const Orders = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [user]);
 
   if (loading) return <p>Cargando pedidos...</p>;
   if (error) return <p className="error-message">{error}</p>;
@@ -91,7 +98,7 @@ const Orders = () => {
                   </li>
                 ))}
               </ul>
-              <h4>Total: ${order.total.toFixed(2)}</h4>
+              <h4>Total: ${order.totalAmount.toFixed(2)}</h4>
             </div>
           ))}
         </div>

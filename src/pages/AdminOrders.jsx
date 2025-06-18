@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/AdminOrders.css";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchOrders = async () => {
     try {
@@ -105,7 +108,7 @@ const AdminOrders = () => {
 
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
-          order._id === orderId ? { ...order, orderStatus: status } : order
+          order._id === orderId ? { ...order, status: status } : order
         )
       );
 
@@ -137,8 +140,10 @@ const AdminOrders = () => {
   if (orders.length === 0) return <p>📭 No tienes pedidos aún.</p>;
 
   return (
-    <>
-      <h2>📦 Mis Pedidos</h2>
+    <div className="admin-orders-container">
+      <div className="order">
+        <h2>📦 Mis Pedidos</h2>
+      </div>
       {orders.map((order) => (
         <div key={order._id} className="order-card">
           <p>🆔 Orden ID: {order._id}</p>
@@ -155,20 +160,22 @@ const AdminOrders = () => {
               ? new Date(order.createdAt).toLocaleDateString()
               : "Sin fecha"}
           </p>
-          <p>🚀 Estado: {order.orderStatus || order.status || "Desconocido"}</p>
+          <p>🚀 Estado: {order.status || "Desconocido"}</p>
 
-          <select
-            value={order.orderStatus || order.status || "Pendiente"}
-            onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-          >
-            <option value="Pendiente">Pendiente</option>
-            <option value="Enviado">Enviado</option>
-            <option value="Entregado">Entregado</option>
-            <option value="Cancelado">Cancelado</option>
-          </select>
+          {user?.role === "admin" && (
+            <select
+              value={order.status}
+              onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+            >
+              <option value="Pendiente">Pendiente</option>
+              <option value="Enviado">Enviado</option>
+              <option value="Entregado">Entregado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          )}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
