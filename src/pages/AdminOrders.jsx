@@ -8,7 +8,7 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  
 
   const fetchOrders = async () => {
     try {
@@ -161,8 +161,7 @@ const AdminOrders = () => {
               : "Sin fecha"}
           </p>
           <p>🚀 Estado: {order.status || "Desconocido"}</p>
-
-          {user?.role === "admin" && (
+          
             <select
               value={order.status}
               onChange={(e) => updateOrderStatus(order._id, e.target.value)}
@@ -171,8 +170,7 @@ const AdminOrders = () => {
               <option value="Enviado">Enviado</option>
               <option value="Entregado">Entregado</option>
               <option value="Cancelado">Cancelado</option>
-            </select>
-          )}
+            </select>          
         </div>
       ))}
     </div>

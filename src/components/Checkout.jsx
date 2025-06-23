@@ -7,6 +7,7 @@ import "../styles/Checkout.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
+// Tu clave pública de Stripe
 const stripePromise = loadStripe("pk_test_51QzKH7ITGEX0lpDO5ediHfFGGPzIT3k4rXaKgDclTXg7huJNOdi4tW36xFBGiWUHaFW3LRq3rDtHz8iRgwg6ctI700oDtlyacW");
 
 const CheckoutForm = () => {
@@ -31,9 +32,7 @@ const CheckoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    if (!stripe || !elements) return;
 
     if (!cart || cart.length === 0 || !totalPrice || totalPrice <= 0) {
       showToast("error", "❌ Carrito vacío o monto inválido");
@@ -48,7 +47,6 @@ const CheckoutForm = () => {
 
     setLoading(true);
 
-    // Crear paymentMethod con los datos de la tarjeta
     const cardElement = elements.getElement(CardElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -61,7 +59,6 @@ const CheckoutForm = () => {
       return;
     }
 
-    // Prepara el body para enviar al backend
     const body = {
       paymentMethodId: paymentMethod.id,
       totalAmount: totalPrice,
@@ -88,6 +85,11 @@ const CheckoutForm = () => {
       if (!response.ok) {
         showToast("error", data.message || "❌ Error al registrar la orden");
         setLoading(false);
+        return;
+      }
+
+      if (data.paymentIntent?.next_action?.redirect_to_url?.url) {
+        window.location.href = data.paymentIntent.next_action.redirect_to_url.url;
         return;
       }
 
