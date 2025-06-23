@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
-  const [salesData, setSalesData] = useState([]);
+  const [totalSales, setTotalSales] = useState(0);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificación del token y rol
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    fetch("https://ecommerce-backend-eohg.onrender.com/api/sales", {
+    fetch("https://ecommerce-backend-eohg.onrender.com/api/orders/totalsales", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -30,46 +31,48 @@ const AdminDashboard = () => {
         if (!res.ok) throw new Error("No autorizado");
         return res.json();
       })
-      .then((data) => setSalesData(data))
+      .then((data) => {
+        setTotalSales(data.totalSales);
+        setTotalOrders(data.totalOrders);
+        const ctx = document.getElementById("salesChart").getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Ventas Totales"],
+            datasets: [
+              {
+                label: "Monto en MXN",
+                data: [data.totalSales],
+                backgroundColor: "#4CAF50",
+                borderRadius: 5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      })
       .catch((err) => {
         console.error("❌ Error al cargar ventas:", err);
-        navigate("/unauthorized");
-      });
+      })
+      .finally(() => setLoading(false));
   }, [navigate]);
 
-  useEffect(() => {
-    if (salesData.length > 0) {
-      const ctx = document.getElementById("salesChart").getContext("2d");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: salesData.map((s) => s.date),
-          datasets: [
-            {
-              label: "Ventas",
-              data: salesData.map((s) => s.total),
-              backgroundColor: "#4CAF50",
-              borderRadius: 5,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-      });
-    }
-  }, [salesData]);
+  if (loading) return <p>Cargando datos del dashboard...</p>;
 
   return (
     <div className="dashboard-container">
       <h2 className="dashboard-header">Dashboard de Administración</h2>
       <div className="stats-container">
         <div className="stat-card">
-          <p className="stat-title">Ventas Totales</p>
-          <p className="stat-value">
-            ${salesData.reduce((acc, curr) => acc + curr.total, 0)}
-          </p>
+          <p className="stat-title">Total de Ventas</p>
+          <p className="stat-value">${totalSales.toFixed(2)}</p>
+        </div>
+        <div className="stat-card">
+          <p className="stat-title">Total de Órdenes</p>
+          <p className="stat-value">{totalOrders}</p>
         </div>
       </div>
       <div className="chart-container">
@@ -77,7 +80,7 @@ const AdminDashboard = () => {
       </div>
       <div className="dashboard-buttons">
         <button onClick={() => navigate("/admin/products")}>Gestionar Productos</button>
-        <button onClick={() => navigate("/admin/sales")}>Ver Ventas</button>
+        <button onClick={() => navigate("/orders")}>Ver Órdenes</button>
       </div>
     </div>
   );

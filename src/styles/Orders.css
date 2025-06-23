@@ -1,105 +1,113 @@
 .orders-container {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
-  font-family: "Arial", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.orders-list {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.orders-container::-webkit-scrollbar {
+  display: none;
 }
 
-/* 🎨 Tarjeta de pedido con un diseño más moderno */
+.order {
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .order-card {
-  background: #2c2c2c;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  border-left: 6px solid #007bff; /* Color por defecto */
+  background: #444;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1.5rem 1.8rem;
+  margin: 1rem auto;
+  max-width: 600px;
+  cursor: default;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .order-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-/* 🎨 Resaltamos el ID y estado */
-.order-card h3 {
-  color: #ffffff;
-  font-size: 18px;
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.order-card p {
-  font-size: 16px;
-  color: #cccccc;
-  margin-bottom: 5px;
-}
-
-/* 🎨 Lista de productos dentro de la orden */
-.order-card ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-.order-card li {
-  font-size: 15px;
-  color: #bbbbbb;
-  padding: 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.order-card li:last-child {
-  border-bottom: none;
-}
-
-/* 🎨 Estados del pedido con colores */
-.order-status {
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 15px;
-  display: inline-block;
-  font-size: 14px;
-}
-
-/* 🎨 Colores según estado del pedido */
-.status-pendiente {
-  background: #ffa502;
+.order-header h3 {
+  margin: 0;
+  font-weight: 700;
   color: #fff;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.status-pagado {
+  background-color: #28a745;
+}
+
+.status-pendiente {
+  background-color: #ffc107;
 }
 
 .status-enviado {
-  background: #007bff;
-  color: #fff;
+  background-color: #079cff;
 }
 
 .status-entregado {
-  background: #28a745;
-  color: #fff;
+  background-color: #ff8707;
 }
 
 .status-cancelado {
-  background: #dc3545;
-  color: #fff;
+  background-color: #dc3545;
 }
 
-/* 🎨 Selector de estado más estilizado */
-.order-card select {
-  padding: 6px;
-  border-radius: 5px;
-  border: none;
-  background: #444;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  outline: none;
-  transition: background 0.2s;
+.order-card p,
+.order-items strong {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ddd;
+  margin: 0.35rem 0;
+  text-align: left;
 }
 
-.order-card select:hover {
-  background: #555;
+.order-items {
+  margin-top: 0.5rem;
+}
+
+.order-items ul {
+  margin-top: 5px;
+  list-style: disc;
+  padding-left: 20px;
+  color: #ccc;
+  margin-bottom: 0;
+}
+
+.order-items ul li {
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 480px) {
+  .order-card {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0.5rem;
+  }
 }

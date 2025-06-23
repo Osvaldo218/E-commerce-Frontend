@@ -46,6 +46,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/user/orders" element={<Orders />} />
           </Routes>
         </div>
         <Chatbot />

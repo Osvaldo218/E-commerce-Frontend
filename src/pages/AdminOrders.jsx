@@ -142,7 +142,7 @@ const AdminOrders = () => {
   return (
     <div className="admin-orders-container">
       <div className="order">
-        <h2>📦 Mis Pedidos</h2>
+        <h2>📦 Pedidos</h2>
       </div>
       {orders.map((order) => (
         <div key={order._id} className="order-card">
@@ -160,6 +160,16 @@ const AdminOrders = () => {
               ? new Date(order.createdAt).toLocaleDateString()
               : "Sin fecha"}
           </p>
+          <div className="order-items">
+            <strong>📚 Productos:</strong>
+            <ul>
+              {order.items.map((item, idx) => (
+                <li key={idx}>
+                  {item.name} x {item.quantity}
+                </li>
+              ))}
+            </ul>
+          </div>
           <p>🚀 Estado: {order.status || "Desconocido"}</p>
           
             <select
