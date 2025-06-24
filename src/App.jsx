@@ -20,6 +20,7 @@ import Users from "./pages/Users";
 import AboutUs from "./pages/AboutUs";
 import Favorites from "./pages/Favorites";
 import Unauthorized from "./pages/Unauthorized";
+import UserAddresses from "./pages/UserAddresses";
 
 function App() {
   return (
@@ -35,7 +36,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/admin/products" element={<Products />} />
             <Route path="/admin/sales" element={<SalesReport />} />
-            <Route path="/admin/orders" element={<Orders />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/singin" element={<Singin />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -47,6 +47,7 @@ function App() {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/user/orders" element={<Orders />} />
+            <Route path="/user/addresses" element={<UserAddresses />} />
           </Routes>
         </div>
         <Chatbot />

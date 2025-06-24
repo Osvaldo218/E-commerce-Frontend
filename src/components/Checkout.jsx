@@ -5,9 +5,13 @@ import { useCart } from "../context/CartContext";
 import "../styles/Checkout.css";
 
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 
-// Tu clave pública de Stripe
 const stripePromise = loadStripe("pk_test_51QzKH7ITGEX0lpDO5ediHfFGGPzIT3k4rXaKgDclTXg7huJNOdi4tW36xFBGiWUHaFW3LRq3rDtHz8iRgwg6ctI700oDtlyacW");
 
 const CheckoutForm = () => {
@@ -16,6 +20,9 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
+
+  const [shippingOption, setShippingOption] = useState("domicilio");
+  const [shippingAddress, setShippingAddress] = useState("");
 
   const showToast = (icon, title) => {
     Swal.fire({
@@ -36,6 +43,11 @@ const CheckoutForm = () => {
 
     if (!cart || cart.length === 0 || !totalPrice || totalPrice <= 0) {
       showToast("error", "❌ Carrito vacío o monto inválido");
+      return;
+    }
+
+    if (shippingOption === "domicilio" && shippingAddress.trim() === "") {
+      showToast("error", "📭 Debes ingresar una dirección de envío");
       return;
     }
 
@@ -62,6 +74,8 @@ const CheckoutForm = () => {
     const body = {
       paymentMethodId: paymentMethod.id,
       totalAmount: totalPrice,
+      shippingOption,
+      shippingAddress: shippingOption === "domicilio" ? shippingAddress : "Recoger en almacén",
       items: cart.map((item) => ({
         productId: item._id,
         name: item.name,
@@ -88,15 +102,10 @@ const CheckoutForm = () => {
         return;
       }
 
-      if (data.paymentIntent?.next_action?.redirect_to_url?.url) {
-        window.location.href = data.paymentIntent.next_action.redirect_to_url.url;
-        return;
-      }
-
       showToast("success", "✅ Pago y orden registrados correctamente");
       navigate("/orders");
-    } catch (error) {
-      console.error("❌ Error al enviar la orden:", error);
+    } catch (err) {
+      console.error("❌ Error al enviar la orden:", err);
       showToast("error", "❌ Error al procesar la orden");
     } finally {
       setLoading(false);
@@ -108,7 +117,50 @@ const CheckoutForm = () => {
       <h2 className="checkout-title">💳 Pago con Tarjeta</h2>
       <p className="instructions">Ingresa los datos de tu tarjeta para realizar el pago seguro.</p>
 
-      <div className="card-element-container" style={{ padding: "10px", border: "1px solid #ccc", borderRadius: "4px", marginBottom: "20px" }}>
+      <div className="shipping-section">
+        <h3>📦 Método de entrega</h3>
+        <div className="shipping-option-group">
+          <label>
+            <input
+              type="radio"
+              name="shippingOption"
+              value="domicilio"
+              checked={shippingOption === "domicilio"}
+              onChange={() => setShippingOption("domicilio")}
+            />
+            Envío a domicilio
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="shippingOption"
+              value="almacen"
+              checked={shippingOption === "almacen"}
+              onChange={() => setShippingOption("almacen")}
+            />
+            Recoger en almacén
+          </label>
+        </div>
+
+        {shippingOption === "domicilio" && (
+          <>
+            <label htmlFor="address">Dirección:</label>
+            <input
+              type="text"
+              id="address"
+              placeholder="Calle, número, colonia, ciudad..."
+              value={shippingAddress}
+              onChange={(e) => setShippingAddress(e.target.value)}
+              required
+            />
+          </>
+        )}
+      </div>
+
+      <div className="card-element-container" style={{
+        padding: "10px", border: "1px solid #ccc",
+        borderRadius: "4px", marginBottom: "20px"
+      }}>
         <CardElement options={{ hidePostalCode: true }} />
       </div>
 
@@ -119,12 +171,10 @@ const CheckoutForm = () => {
   );
 };
 
-const Checkout = () => {
-  return (
-    <Elements stripe={stripePromise}>
-      <CheckoutForm />
-    </Elements>
-  );
-};
+const Checkout = () => (
+  <Elements stripe={stripePromise}>
+    <CheckoutForm />
+  </Elements>
+);
 
 export default Checkout;

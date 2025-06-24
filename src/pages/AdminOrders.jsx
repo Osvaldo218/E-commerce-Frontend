@@ -8,8 +8,6 @@ const AdminOrders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  
-
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
