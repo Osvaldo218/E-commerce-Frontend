@@ -21,6 +21,7 @@ import AboutUs from "./pages/AboutUs";
 import Favorites from "./pages/Favorites";
 import Unauthorized from "./pages/Unauthorized";
 import UserAddresses from "./pages/UserAddresses";
+import WhatsApp from "./components/Whatsapp";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path="/user/addresses" element={<UserAddresses />} />
           </Routes>
         </div>
+        <WhatsApp />
         <Chatbot />
       </Router>
     </CartProvider>
