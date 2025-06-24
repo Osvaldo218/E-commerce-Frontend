@@ -90,11 +90,14 @@ const UserAddresses = () => {
       <input
         type="text"
         placeholder="Agregar nueva dirección..."
+        className="input-address"
         value={newAddress}
         onChange={(e) => setNewAddress(e.target.value)}
       />
 
-      <button onClick={handleAddAddress}>Agregar Dirección</button>
+      <button className="button-address" onClick={handleAddAddress}>
+        Agregar Dirección
+      </button>
 
       <div className="address-list">
         {addresses.length === 0 ? (
