@@ -41,14 +41,14 @@ const Navbar = (onSearch) => {
 
       {/* Menú de navegación */}
       <ul className={`navbar-links ${menuOpen ? "active" : ""}`}>
-        <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>🏠Inicio</Link></li>
-        <li><Link to="/admin/products" onClick={() => setMenuOpen(false)}>📦Productos</Link></li>
-        <li><Link to="/orders" onClick={() => setMenuOpen(false)}>📜Pedidos</Link></li>
-        <li><Link to="/user/orders" onClick={() => setMenuOpen(false)}>📚Mis Pedidos</Link></li>
-        <li><Link to="/Perfil" onClick={() => setMenuOpen(false)}><User size={20} />Cuenta</Link></li>
-        <li><Link to="/user/addresses" onClick={() => setMenuOpen(false)}>📍Direccion</Link></li>
-        <li><Link to="/admin/users" onClick={() => setMenuOpen(false)}><FaUsers size={20} />Usuarios</Link></li>
-        <li><Link to="/favorites" onClick={() => setMenuOpen(false)}> ♥️Favoritos</Link></li>
+        <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>🏠 Inicio</Link></li>
+        <li><Link to="/admin/products" onClick={() => setMenuOpen(false)}>📦 Productos</Link></li>
+        <li><Link to="/orders" onClick={() => setMenuOpen(false)}>📜 Pedidos</Link></li>
+        <li><Link to="/user/orders" onClick={() => setMenuOpen(false)}>📚 Mis Pedidos</Link></li>
+        <li><Link to="/Perfil" onClick={() => setMenuOpen(false)}><User size={20} /> Cuenta</Link></li>
+        <li><Link to="/user/addresses" onClick={() => setMenuOpen(false)}>📍 Direccion</Link></li>
+        <li><Link to="/admin/users" onClick={() => setMenuOpen(false)}><FaUsers size={20} /> Usuarios</Link></li>
+        <li><Link to="/favorites" onClick={() => setMenuOpen(false)}> ♥️ Favoritos</Link></li>
         <li className="cart-icon">
           <Link to="/cart" onClick={() => setMenuOpen(false)}>
             <ShoppingCart size={24} />

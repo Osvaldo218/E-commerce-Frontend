@@ -85,7 +85,7 @@ const UserAddresses = () => {
 
   return (
     <div className="user-addresses">
-      <h2>📍 Mis Direcciones Guardadas</h2>
+      <h2>📍 Direcciones Guardadas</h2>
 
       <input
         type="text"
@@ -96,6 +96,7 @@ const UserAddresses = () => {
       />
 
       <button className="button-address" onClick={handleAddAddress}>
+        <i className="fas fa-plus" style={{ marginRight: "8px" }}></i>
         Agregar Dirección
       </button>
 
