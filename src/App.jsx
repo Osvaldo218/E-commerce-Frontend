@@ -21,7 +21,7 @@ import AboutUs from "./pages/AboutUs";
 import Favorites from "./pages/Favorites";
 import Unauthorized from "./pages/Unauthorized";
 import UserAddresses from "./pages/UserAddresses";
-import WhatsApp from "./components/Whatsapp";
+import WhatsApp from "./components/WhatsApp";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
