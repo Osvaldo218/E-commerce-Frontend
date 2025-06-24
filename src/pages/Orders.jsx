@@ -70,6 +70,7 @@ const UserOrders = () => {
               ))}
             </ul>
           </div>
+          <p>🚚 Método de Entrega: {order.shippingOption === "almacen" ? "Recoger en almacén" : "Envío a domicilio"}</p>
         </div>
       ))}
     </div>

@@ -141,45 +141,47 @@ const AdminOrders = () => {
     <div className="admin-orders-container">
       <div className="order">
         <h2>📦 Pedidos</h2>
-      </div>
-      {orders.map((order) => (
-        <div key={order._id} className="order-card">
-          <p>🆔 Orden ID: {order._id}</p>
-          <p>👤 Cliente: {order.user?.name || "Desconocido"}</p>
-          <p>
-            💰 Total: $
-            {typeof order.totalAmount === "number"
-              ? order.totalAmount.toFixed(2)
-              : "0.00"}
-          </p>
-          <p>
-            📅 Fecha:{" "}
-            {order.createdAt
-              ? new Date(order.createdAt).toLocaleDateString()
-              : "Sin fecha"}
-          </p>
-          <div className="order-items">
-            <strong>📚 Productos:</strong>
-            <ul>
-              {order.items.map((item, idx) => (
-                <li key={idx}>
-                  {item.name} x {item.quantity}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p>🚀 Estado: {order.status || "Desconocido"}</p>
-          
-            <select
-              value={order.status}
-              onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-            >
-              <option value="Pendiente">Pendiente</option>
-              <option value="Enviado">Enviado</option>
-              <option value="Entregado">Entregado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>          
         </div>
+            {orders.map((order) => (
+              <div key={order._id} className="order-card">
+        <p>🆔 Orden ID: {order._id}</p>
+        <p>👤 Cliente: {order.user?.name || "Desconocido"}</p>
+        <p>
+          💰 Total: $
+          {typeof order.totalAmount === "number"
+            ? order.totalAmount.toFixed(2)
+            : "0.00"}
+        </p>
+        <p>
+          📅 Fecha:{" "}
+          {order.createdAt
+            ? new Date(order.createdAt).toLocaleDateString()
+            : "Sin fecha"}
+        </p>
+        <div className="order-items">
+          <strong>📚 Productos:</strong>
+          <ul>
+            {order.items.map((item, idx) => (
+              <li key={idx}>
+                {item.name} x {item.quantity}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p>🚚 Método de Entrega: {order.shippingOption === "almacen" ? "Recoger en almacén" : "Envío a domicilio"}</p>
+        <p>🚀 Estado: {order.status || "Desconocido"}</p>
+
+        <select
+          value={order.status}
+          onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+        >
+          <option value="Pendiente">Pendiente</option>
+          <option value="Enviado">Enviado</option>
+          <option value="Entregado">Entregado</option>
+          <option value="Cancelado">Cancelado</option>
+        </select>
+      </div>
       ))}
     </div>
   );
