@@ -117,4 +117,16 @@
   input[type="text"] {
     width: 90%;
   }
+
+  .address-card button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 3rem;
+    transition: background 0.2s ease;
+  }
 }
