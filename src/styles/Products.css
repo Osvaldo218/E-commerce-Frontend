@@ -5,6 +5,24 @@
   text-align: center;
 }
 
+/* Ocultar barra de scroll en Webkit (Chrome, Safari) */
+.products-container::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Ocultar barra de scroll en Firefox */
+.products-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+/* También asegura que sea scrollable pero sin mostrar la barra */
+.products-container {
+  overflow-y: scroll; /* o auto si solo aparece cuando sea necesario */
+  overflow-x: hidden;
+}
+
 /* Título */
 .products-title {
   font-size: 24px;
