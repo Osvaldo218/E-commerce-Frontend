@@ -5,6 +5,8 @@ import "../styles/Addresses.css";
 const UserAddresses = () => {
   const [addresses, setAddresses] = useState([]);
   const [newAddress, setNewAddress] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editingValue, setEditingValue] = useState("");
 
   const token = localStorage.getItem("token");
 
@@ -36,7 +38,6 @@ const UserAddresses = () => {
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Error al guardar");
 
       setAddresses(data.addresses);
@@ -72,11 +73,41 @@ const UserAddresses = () => {
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || "Error al eliminar");
 
       setAddresses(data.addresses);
       Swal.fire("✅ Eliminada", "Dirección eliminada correctamente", "success");
+    } catch (error) {
+      console.error("❌", error);
+      Swal.fire("Error", error.message, "error");
+    }
+  };
+
+  const handleEdit = (index, currentValue) => {
+    setEditingIndex(index);
+    setEditingValue(currentValue);
+  };
+
+  const handleUpdate = async (oldAddress) => {
+    if (!editingValue.trim()) return;
+
+    try {
+      const res = await fetch("https://ecommerce-backend-eohg.onrender.com/api/users/addresses", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ oldAddress, newAddress: editingValue }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error al actualizar");
+
+      setAddresses(data.addresses);
+      setEditingIndex(null);
+      setEditingValue("");
+      Swal.fire("✅ Actualizada", "Dirección actualizada correctamente", "success");
     } catch (error) {
       console.error("❌", error);
       Swal.fire("Error", error.message, "error");
@@ -106,8 +137,30 @@ const UserAddresses = () => {
         ) : (
           addresses.map((address, idx) => (
             <div key={idx} className="address-card">
-              <p>{address}</p>
-              <button onClick={() => handleDelete(address)}>Eliminar</button>
+              {editingIndex === idx ? (
+                <>
+                  <input
+                    type="text"
+                    value={editingValue}
+                    onChange={(e) => setEditingValue(e.target.value)}
+                    className="input-address"
+                  />
+                  <button onClick={() => handleUpdate(address)}>Guardar</button>
+                  <button onClick={() => setEditingIndex(null)}>Cancelar</button>
+                </>
+              ) : (
+                <>
+                  <p>{address}</p>
+                  <div>
+                    <button onClick={() => handleEdit(idx, address)}>
+                      <i className="fas fa-edit"></i>
+                    </button>
+                    <button onClick={() => handleDelete(address)}>
+                      <i className="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           ))
         )}
